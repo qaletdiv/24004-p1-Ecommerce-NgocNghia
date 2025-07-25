@@ -1,0 +1,178 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Arial', sans-serif;
+    height: 100vh;
+    background: rgba(172, 68, 181, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.signup-container {
+    width: 100%;
+    max-width: 900px;
+    height: 600px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    display: flex;
+    position: relative;
+}
+.left-panel {
+    flex: 1;
+    background-image: url('https://i.redd.it/qzmvvq18k1ga1.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    overflow: hidden;
+}
+.img-decoration {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(102, 126, 234, 0.3), rgba(255, 107, 107, 0.3));
+}
+.right-panel{
+    flex: 1;
+    padding: 60px 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: #fafafa;
+}
+.store-logo {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: rgba(172, 68, 181, 0.7);
+    text-shadow: 0 0 1rem rgba(180, 118, 242, 0.5);
+    margin-bottom: 40px;
+    text-align: center;
+}
+.header-text {
+    margin-bottom: 30px;
+    text-align: center;
+}
+.header-text h1 {
+    font-size: 40px;
+    color: #333;
+    margin-bottom: 5px;
+    font-weight: 300;
+}
+.form-log {
+    margin-bottom: 25px;
+    position: relative;
+}
+.form-log input {
+    width: 100%;
+    padding: 15px 20px;
+    border: 2px solid #e1e5e9;
+    border-radius: 8px;
+    font-size: 14px;
+    background: white;
+    transition: all 0.3s ease;
+    outline: none;
+}
+.form-log input:focus {
+    border-color: rgba(172, 68, 181, 0.7);
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.form-log input::placeholder {
+    color: #999;
+    font-weight: 300;
+}
+.button-log{
+    display: flex;
+    gap: 15px;
+    margin: 30px 0;
+}
+.btn {
+    flex: 1;
+    padding: 15px 25px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.btn-signup {
+    background: transparent;
+    color: rgba(172, 68, 181, 0.7);
+    border: 2px solid rgba(172, 68, 181, 0.7);
+}
+.btn-signup:hover {
+    background: rgba(172, 40, 184, 0.7);
+    transform: translateY(-2px);
+    color: white;
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+.account-log {
+    text-align: center;
+    margin-top: 20px;
+}
+.account-log a {
+    color: #999;
+    text-decoration: none;
+    font-size: 15px;
+    transition: color 0.3s ease;
+}
+.account-log a:hover {
+    color: rgba(208, 38, 223, 0.7);
+}
+
+/*  Responsive for sign up form */
+@media (max-width: 768px) {
+    .login-container {
+        flex-direction: column;
+        height: auto;
+        max-width: 400px;
+    }
+
+    .left-panel {
+        height: 200px;
+        flex: none;
+    }
+
+    .right-panel {
+        padding: 40px 30px;
+    }
+
+    .welcome-text h1,
+    .welcome-text h2 {
+        font-size: 24px;
+    }
+
+    .button-group {
+        flex-direction: column;
+    }
+}
+
+.btn.loading {
+    position: relative;
+    color: transparent;
+}
+
+.btn.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    border: 2px solid transparent;
+    border-top: 2px solid currentColor;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
