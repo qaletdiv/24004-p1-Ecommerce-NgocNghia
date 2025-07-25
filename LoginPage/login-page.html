@@ -7,23 +7,26 @@
     <title>Ecomerce Webpage - Login</title>
     <link rel="stylesheet" href="login-page.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <script src="../main.js"></script>
 </head>
 
 <body>
 
     <div class="login-container">
-        <div class="left-panel">
+        <div class="left-panel login-mode" id="leftPanel">
             <div class="img-decoration"></div>
         </div>
 
         <div class="right-panel">
             <div class="store-logo">J&N Figure Store</div>
 
+            <div class="form-container">
+            <div class="login-form" id="loginForm">
+            <!-- Login Form -->
             <div class="header-text">
                 <h1>Hello Guest </h1>
                 <h2>Welcome To Our Store</h2>
             </div>
-
             <form id="login-form">
                 <div class="form-log">
                     <input type="text" required id="email" placeholder="Email Address">
@@ -54,8 +57,35 @@
                     </div>
                 </div>
             </form>
-        </div>
+            </div>
 
+            <div class="signup-form hidden" id = "signupForm">
+
+                <div class="header-text">
+                    <h1>Sign Up</h1>
+                </div>
+    
+                <form id="signup-form">
+                    <div class="form-log">
+                        <input type="text" required id="signupName" placeholder="Name">
+                    </div>
+                    <div class="form-log">
+                        <input type="text" required id="signupEmail" placeholder="Email Address">
+                    </div>
+                    <div class="form-log">
+                        <input type="text" required id="signupPassword" placeholder="Password">
+                    </div>
+                    <div class="button-log">
+                        <button type="button" class="btn btn-signup" onclick="switchToSignup()">Sign up</button>
+                    </div>
+                    <div class="account-log">
+                        <p>Already have an account ? <a href="" onclick="switchToLogin()">Log In</a></p>
+                    </div>
+    
+                </form>
+            </div>
+            </div>
+        </div>
     </div>
 </body>
 
