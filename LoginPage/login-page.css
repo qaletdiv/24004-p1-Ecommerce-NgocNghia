@@ -3,6 +3,7 @@
     padding: 0;
     box-sizing: border-box;
 }
+
 body {
     font-family: 'Arial', sans-serif;
     height: 100vh;
@@ -11,6 +12,7 @@ body {
     justify-content: center;
     align-items: center;
 }
+
 .login-container {
     width: 100%;
     max-width: 900px;
@@ -22,15 +24,25 @@ body {
     display: flex;
     position: relative;
 }
+
+.left-panel.login-mode {
+    background-image: url('https://i.pinimg.com/474x/f7/27/17/f727178f64d3b70135e8ad4bf4aac676.jpg');
+}
+
+.left-panel.signup-mode {
+    background-image: url('https://i.redd.it/qzmvvq18k1ga1.jpg');
+}
+
 .left-panel {
     flex: 1;
-    background-image: url('https://i.pinimg.com/474x/f7/27/17/f727178f64d3b70135e8ad4bf4aac676.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     position: relative;
     overflow: hidden;
+    transition: all 0.6s ease;
 }
+
 .img-decoration {
     position: absolute;
     top: 0;
@@ -39,14 +51,16 @@ body {
     bottom: 0;
     background: linear-gradient(45deg, rgba(102, 126, 234, 0.3), rgba(255, 107, 107, 0.3));
 }
-.right-panel{
+
+.right-panel {
     flex: 1;
     padding: 60px 50px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     background: #fafafa;
+    overflow: hidden;
 }
+
 .store-logo {
     font-size: 2.5rem;
     font-weight: bold;
@@ -56,25 +70,30 @@ body {
     margin-bottom: 40px;
     text-align: center;
 }
+
 .header-text {
     margin-bottom: 30px;
 }
+
 .header-text h1 {
     font-size: 32px;
     color: #333;
     margin-bottom: 5px;
     font-weight: 300;
 }
+
 .header-text h2 {
     font-size: 32px;
     color: rgba(172, 68, 181, 0.7);
     font-weight: 700;
     margin-bottom: 0;
 }
+
 .form-log {
     margin-bottom: 25px;
     position: relative;
 }
+
 .form-log input {
     width: 100%;
     padding: 15px 20px;
@@ -85,6 +104,7 @@ body {
     transition: all 0.3s ease;
     outline: none;
 }
+
 .form-log input:focus {
     border-color: rgba(172, 68, 181, 0.7);
     box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
@@ -94,11 +114,13 @@ body {
     color: #999;
     font-weight: 300;
 }
-.button-log{
+
+.button-log {
     display: flex;
     gap: 15px;
     margin: 30px 0;
 }
+
 .btn {
     flex: 1;
     padding: 15px 25px;
@@ -110,50 +132,63 @@ body {
     transition: all 0.3s ease;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    background: transparent;
+    color: rgba(172, 68, 181, 0.7);
+    border: 2px solid rgba(172, 68, 181, 0.7);
 }
+
 .btn-login {
     background: transparent;
     color: rgba(172, 68, 181, 0.7);
     border: 2px solid rgba(172, 68, 181, 0.7);
 }
-.btn-login:hover {
+
+.btn:hover {
     background: rgba(172, 40, 184, 0.7);
     transform: translateY(-2px);
     color: white;
     box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
 }
+
 .btn-signup {
     background: transparent;
     color: rgba(172, 68, 181, 0.7);
     border: 2px solid rgba(172, 68, 181, 0.7);
 }
+
 .btn-signup:hover {
     background: rgba(172, 40, 184, 0.7);
     transform: translateY(-2px);
     color: white;
     box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
 }
+
 .lost-password {
     text-align: center;
     margin-top: 20px;
 }
+
 .lost-password a {
     color: #999;
     text-decoration: none;
     font-size: 15px;
     transition: color 0.3s ease;
 }
+
 .lost-password a:hover {
     color: rgba(172, 40, 184, 0.7);
 }
+
 .social-section {
     margin-top: 20px;
 }
+
 .social-links {
     display: flex;
     gap: 30px;
     justify-content: center;
 }
+
 .social-link {
     width: 40px;
     height: 40px;
@@ -166,6 +201,7 @@ body {
     text-decoration: none;
     transition: all 0.3s ease;
 }
+
 .social-link:hover {
     border-color: rgba(172, 40, 184, 0.7);
     color: rgba(172, 40, 184, 0.7);
@@ -199,6 +235,42 @@ body {
     }
 }
 
+.form-container {
+    position: relative;
+    width: 100%;
+}
+
+.login-form,
+.signup-form {
+    position: absolute;
+    width: 100%;
+    transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Hidden signup and login form  */
+.login-form.hidden {
+    opacity: 0;
+    transform: translateX(-100%);
+    pointer-events: none;
+}
+
+.signup-form.hidden {
+    opacity: 0;
+    transform: translateX(100%);
+    pointer-events: none;
+}
+
+/* Signup text */
+.signup-form .header-text {
+    text-align: center;
+}
+
+.signup-form .header-text h1 {
+    font-size: 40px;
+}
+
 .btn.loading {
     position: relative;
     color: transparent;
@@ -216,4 +288,29 @@ body {
     border-top: 2px solid currentColor;
     border-radius: 50%;
     animation: spin 1s linear infinite;
+}
+
+.account-log {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.account-log a {
+    color: #999;
+    text-decoration: none;
+    font-size: 15px;
+    transition: color 0.3s ease;
+    cursor: pointer;
+}
+.account-log a:hover {
+    color: rgba(208, 38, 223, 0.7);
+}
+@keyframes spin {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
 }
