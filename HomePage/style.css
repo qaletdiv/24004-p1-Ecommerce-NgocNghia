@@ -11,6 +11,8 @@ body {
     background-color: #f8f9fa;
 }
 
+/* HomePage */
+
 /* Header */
 .site-header {
     background-image: url('https://wallpapercave.com/wp/wp3271343.jpg');
@@ -70,12 +72,19 @@ body {
     gap: 2rem;
 }
 
+.nav-icons {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-left: 2rem;
+}
 .nav-links a {
     color: #fff;
     text-decoration: none;
     font-weight: 500;
     transition: all 0.3s ease;
     position: relative;
+    padding: 0.5rem 0;
 }
 
 .nav-links a:hover {
@@ -96,6 +105,52 @@ body {
 
 .nav-links a:hover::after {
     width: 100%;
+}
+
+.cart-icon, .profile-icon {
+    color: #fff;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.cart-icon:hover, .profile-icon:hover {
+    color: #ffd700;
+    transform: translateY(-2px) scale(1.1);
+}
+
+.profile-img {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    filter: brightness(0) invert(1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    top: -2px;
+}
+
+.profile-img:hover {
+    filter: brightness(0) invert(1) sepia(1) saturate(5) hue-rotate(45deg);
+    transform: scale(1.1);
+}
+
+/* Cart badge for item count */
+.cart-icon::after {
+    content: '3';
+    position: absolute;
+    top: -2px;
+    right: -8px;
+    background: #ff4757;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 18px;
+    font-size: 0.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: pulse 2s infinite;
 }
 
 .title-header {
@@ -487,3 +542,4 @@ hr {
         font-size: 1rem;
     }
 }
+

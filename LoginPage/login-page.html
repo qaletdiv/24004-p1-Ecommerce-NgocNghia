@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecomerce Webpage - Login</title>
+    <link rel="stylesheet" href="login-page.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+<body>
+
+    <div class="login-container">
+        <div class="left-panel">
+            <div class="img-decoration"></div>
+        </div>
+
+        <div class="right-panel">
+            <div class="store-logo">J&N Figure Store</div>
+
+            <div class="header-text">
+                <h1>Hello Guest </h1>
+                <h2>Welcome To Our Store</h2>
+            </div>
+
+            <form id="login-form">
+                <div class="form-log">
+                    <input type="text" required id="email" placeholder="Email Address">
+                </div>
+                <div class="form-log">
+                    <input type="text" required id="password" placeholder="Password">
+                </div>
+                <div class="button-log">
+                    <button type="submit" class="btn btn-login" onclick="switchToLogin()">Login</button>
+                    <button type="button" class="btn btn-signup" onclick="switchToSignup()">Sign up</button>
+                </div>
+
+                <div class="lost-password">
+                    <a href="#">Forgot your password?</a>
+                </div>
+
+                <div class="social-section">
+                    <div class="social-links">
+                        <a href="#" class="social-link">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</body>
+
+</html>
