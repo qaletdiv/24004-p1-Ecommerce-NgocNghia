@@ -21,7 +21,8 @@ let isLoginMode = true;
                 const loginForm = document.getElementById('loginForm');
                 const signupForm = document.getElementById('signupForm');
                 const leftPanel = document.getElementById('leftPanel');
-
+                
+                /// Login Mode 
                 loginForm.classList.add('hidden');
                 signupForm.classList.remove('hidden');
                 leftPanel.classList.remove('login-mode');
@@ -37,6 +38,7 @@ let isLoginMode = true;
                 const signupForm = document.getElementById('signupForm');
                 const leftPanel = document.getElementById('leftPanel');
 
+                /// Sign Up Mode
                 signupForm.classList.add('hidden');
                 loginForm.classList.remove('hidden');
                 leftPanel.classList.remove('signup-mode');

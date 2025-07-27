@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecomerce Webpage - Home</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="shop-page-style.css">
+    <script src="../main.js"></script>
+</head>
+
+<body>
+    <header class="site-header">
+        <!-- logo -->
+        <nav class="nav-container">
+            <a href="" class="logo">J&N FIGURE STORE</a>
+            <ul class="nav-links">
+                <li><a href="../HomePage/home.html">HOME</a></li>
+                <li><a href="#">ABOUT</a></li>
+                <li><a href="#">SHOP</a></li>
+                <li><a href="#">CONTACT</a></li>
+                <li class="nav-icons">
+                    <i class="fa-solid fa-bag-shopping cart-icon"></i>
+                    <div class="account-dropdown">
+                        <img class="profile-img" src="https://www.svgrepo.com/show/343494/profile-user-account.svg"
+                            alt="account-logo" srcset="" onclick="toggleDropdown()">
+                        <!-- Menu drop down when click on profile -->
+                        <div class="profile-menu" id="profile-dropdown">
+                            <ul>
+                                <li><a href="#">HOME</a></li>
+                                <li><a href="#">ABOUT</a></li>
+                                <li><a href="#">SHOP</a></li>
+                                <li><a href="#">CONTACT</a></li>
+                                <li><a href="../LoginPage/login-page.html" class="sign-in">SIGN IN</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+        <div class="title-header">
+            <h1>J&N SHOP</h1>
+            <p>HIGH-END FIGURE COLLECTION</p>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- Filter Section -->
+        <section class="filter-section">
+            <div class="filter-container">
+                <div class="filter-group">
+                    <label for="category">Category</label>
+                    <select class="filter-select" id="category">
+                        <option value="all">All Categories</option>
+                        <option value="naruto">Naruto</option>
+                        <option value="one-piece">One Piece</option>
+                        <option value="dragon-ball">Dragon Ball</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="price">Price Range</label>
+                    <select class="filter-select" id="price">
+                        <option value="all">All Prices</option>
+                        <option value="under-3m">Under 3M VND</option>
+                        <option value="3m-6m">3M - 6M VND</option>
+                        <option value="6m-10m">6M - 10M VND</option>
+                        <option value="over-10m">Over 10M VND</option>
+                    </select>
+                </div>
+                <div class="search-box">
+                    <input type="text" class="search-input" placeholder="Name figures">
+                    <button class="search-btn">
+                        <i class="fa-solid fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Product Section -->
+        <section class="products-section">
+            <h2 class="section-title">Premium Models</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <img src="https://images-na.ssl-images-amazon.com/images/I/71lKAaO0kjL.jpg" alt="Naruto Figure"
+                        class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-name">Naruto Figure</h3>
+                        <p class="product-price">2.990.000₫</p>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://product.hstatic.net/200000740923/product/375230918_4333024960256194_5745521659294105170_n_4df8cd6b8c3b423391d4a723724142a7_master.jpg"
+                        alt="Sasuke Figure" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-name">Sasuke Figure</h3>
+                        <p class="product-price">3.590.000₫</p>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:format(webp):quality(75)/kaido_One_Piece_01_e6cd59f53d.jpg"
+                        alt="Kaido Figure" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-name">Kaido Figure</h3>
+                        <p class="product-price">6.990.000₫</p>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://i.ebayimg.com/00/s/MTA2Nlg4MDA=/z/Cr0AAOSw7Jlc2n2s/$_57.JPG?set_id=8800005007"
+                        alt="Lucci Figure" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-name">Lucci Figure</h3>
+                        <p class="product-price">1.990.000₫</p>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://i.redd.it/spdbeuq7l4lb1.jpeg" alt="Buddha Figure" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-name">Buddha Figure</h3>
+                        <p class="product-price">18.990.000₫</p>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://bizweb.dktcdn.net/thumb/1024x1024/100/418/981/products/z4035734204274-12f428ac0e3e309cf429f00d467a5adb.jpg?v=1673586590863"
+                        alt="Goku Figure" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-name">Songoku figure</h3>
+                        <p class="product-price">5.990.000₫</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pages -->
+            <div class="pagination">
+                <button>« Previous</button>
+                <button class="active">1</button>
+                <button>2</button>
+                <button>3</button>
+                <button>Next »</button>
+            </div>
+        </section>
+        <aside class="blog-section">
+            <h2 class="section-title">Figure Collection Blog</h2>
+            <div class="blog-posts">
+                <article class="blog-post">
+                    <h3 class="blog-title">Top 5 Hottest Anime Figures 2025</h3>
+                    <p class="blog-description">Discover the most sought-after anime figures of 2025, from Naruto,
+                        One Piece to Dragon Ball in premium quality.</p>
+                    <a href="#" class="read-more-btn">Read more</a>
+                </article>
+
+                <article class="blog-post">
+                    <h3 class="blog-title">How to Preserve Figures Properly</h3>
+                    <p class="blog-description">
+                        Detailed instructions on how to preserve, clean and display figures to maintain their beauty
+                        and long-term value.</p>
+                    <a href="#" class="read-more-btn">Read more</a>
+                </article>
+
+                <article class="blog-post">
+                    <h3 class="blog-title">Distinguishing Genuine vs Fake Figures</h3>
+                    <p class="blog-description">
+                        Signs to identify genuine and fake figures, helping you avoid buying poor quality
+                        counterfeit goods.</p>
+                    <a href="#" class="read-more-btn">Read more</a>
+                </article>
+
+                <article class="blog-post">
+                    <h3 class="blog-title">
+                        Review of the Latest One Piece Figure</h3>
+                    <p class="blog-description">
+                        Detailed review of newly released One Piece figures with quality sculpt, paint and
+                        accessories included.</p>
+                    <a href="#" class="read-more-btn">Read more</a>
+                </article>
+
+                <article class="blog-post">
+                    <h3 class="blog-title">Figure Photography: Professional Photography</h3>
+                    <p class="blog-description">
+                        Techniques for taking beautiful figure photos with natural light, suitable background and impressive camera angles. Set up a mini studio at home.</p>
+                    <a href="#" class="read-more-btn">Read more</a>
+                </article>
+
+                <article class="blog-post">
+                    <h3 class="blog-title">Custom Figure: Create Your Own Favorite Character</h3>
+                    <p class="blog-description">Guide to customizing figures from basic to advanced. Necessary tools, painting and sculpting techniques for beginners.</p>
+                    <a href="#" class="read-more-btn">Read more</a>
+                </article>
+            </div>
+        </aside>
+    </main>
+
+    <footer class="footer-content">
+        <ul class="nav-links">
+            <li><a href="#">HOME</a></li>
+            <li><a href="#">ABOUT</a></li>
+            <li><a href="#">SHOP</a></li>
+            <li><a href="#">CONTACT</a></li>
+        </ul>
+        <a href="" class="logo">J&N FIGURE STORE</a>
+        <p>Copyright &copy; 2025 J&N Figure Store</p>
+    </footer>
+
+    <script>
+
+         /// Filter
+         document.getElementById('category').addEventListener('change', function() {
+            console.log('Category filter:', this.value);
+        });
+
+        /// Price
+        document.getElementById('price').addEventListener('change', function() {
+            console.log('Price filter:', this.value);
+        });
+
+        document.querySelector('.search-btn').addEventListener('click', function() {
+            const searchTerm = document.querySelector('.search-input').value;
+            console.log('Search term:', searchTerm);
+        });
+
+        // Pages
+        document.querySelectorAll('.pagination button').forEach(button => {
+            button.addEventListener('click', function() {
+                document.querySelector('.pagination button.active').classList.remove('active');
+                this.classList.add('active');
+            });
+        });
+
+        // Add to cart
+        document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                this.style.background = 'linear-gradient(45deg, #27ae60, #20bf6b)';
+                this.textContent = 'Added!';
+                
+                setTimeout(() => {
+                    this.style.background = 'linear-gradient(45deg, #667eea, #764ba2)';
+                    this.textContent = 'Add to Cart';
+                }, 2000);
+            });
+        });
+    </script>
+</body>
+</html>
