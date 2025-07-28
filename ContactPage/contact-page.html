@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecomerce Webpage - About</title>
+    <link rel="stylesheet" href="contact-page.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <script src="../main.js"></script>
+</head>
+
+<body>
+    <header class="site-header">
+        <!-- logo -->
+        <nav class="nav-container">
+            <a href="" class="logo">J&N FIGURE STORE</a>
+            <ul class="nav-links">
+                <li><a href="../HomePage/home.html">HOME</a></li>
+                <li><a href="../AboutPage/about-page.html">ABOUT</a></li>
+                <li><a href="../ShopPage/shop-page.html">SHOP</a></li>
+                <li><a href="">CONTACT</a></li>
+                <li class="nav-icons">
+                    <i class="fa-solid fa-bag-shopping cart-icon"></i>
+                    <div class="account-dropdown">
+                        <img class="profile-img" src="https://www.svgrepo.com/show/343494/profile-user-account.svg"
+                            alt="account-logo" srcset="" onclick="toggleDropdown()">
+                        <!-- Menu drop down when click on profile -->
+                        <div class="profile-menu" id="profile-dropdown">
+                            <ul>
+                                <li><a href="../HomePage/home.html">HOME</a></li>
+                                <li><a href="../AboutPage/about-page.html">ABOUT</a></li>
+                                <li><a href="../ShopPage/shop-page.html">SHOP</a></li>
+                                <li><a href="#">CONTACT</a></li>
+                                <li><a href="../LoginPage/login-page.html" class="sign-in">SIGN IN</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+        <div class="title-header">
+            <h1>CONTACT US</h1>
+        </div>
+    </header>
+
+    <main>
+        <div class="contact-container">
+            <div class="contact-header">
+                <h2>Get In Touch</h2>
+                <p>Have questions about our figures or need assistance with your order? We're here to help! Reach out to us and we'll get back to you as soon as possible.</p>
+            </div>
+            
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="info-text">
+                            <h4>Address</h4>
+                            <p>123 Figure Street<br>Anime District, Tokyo 12345</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="info-text">
+                            <h4>Phone</h4>
+                            <p>+1 (555) 123-4567</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="info-text">
+                            <h4>Email</h4>
+                            <p>info@jnfigurestore.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="info-text">
+                            <h4>Business Hours</h4>
+                            <p>Mon - Fri: 9:00 AM - 6:00 PM<br>Sat - Sun: 10:00 AM - 4:00 PM</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h3>Send us a Message</h3>
+                    <form>
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" name="subject" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" placeholder="Tell us how we can help you..." required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer-content">
+        <ul class="nav-links">
+            <li><a href="#">HOME</a></li>
+            <li><a href="#">ABOUT</a></li>
+            <li><a href="#">SHOP</a></li>
+            <li><a href="#">CONTACT</a></li>
+        </ul>
+        <a href="" class="logo">J&N FIGURE STORE</a>
+        <p>Copyright &copy; 2025 J&N Figure Store</p>
+    </footer>
+</body>
+
+</html>
