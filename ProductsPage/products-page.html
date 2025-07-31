@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecomerce Webpage - Products</title>
+    <link rel="stylesheet" href="products-page.css">
+</head>
+<body>
+    <div id = "product-container"></div>
+
+    <script src="../mock-data.js"></script>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const id = parseInt(params.get("id"),10);
+
+        const product = products.find(p => p.id === id);
+        const container = document.getElementById("product-container");
+
+        if(!product){
+            container.innerHTML = `<p class = "not-found"> Product not found! </p>`; 
+        }
+        else {
+            container.innerHTML = `
+            <div class = "product-card">
+                <img src = "${product.image}" alt = "${product.name}" />
+                <h2>${product.name}</h2>
+                <p><strong>Price:</strong>${product.price}VND</p>
+                <p>${product.description}</p>
+            </div>
+            `;
+        }
+    </script>
+</body>
+</html>

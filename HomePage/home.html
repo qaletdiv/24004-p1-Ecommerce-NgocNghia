@@ -46,7 +46,7 @@
     <main>
         <section class= "products-section">
             <div class="products-grid">
-                <div class="product-card">
+                <div class="product-card" data-product-id="117">
                     <img src="https://www.bbcw.com/var/images/product/500.500/AA137597.jpg" alt="" class ="product-image">
                     <div class="product-info">
                         <h3 class="product-name">Pain Figure</h3>
@@ -54,15 +54,15 @@
                     </div>
                 </div>
 
-                <div class="product-card">
+                <div class="product-card" data-product-id="118">
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTebIl5QoOVAJvQZ6DY2UfvbVPQmiqA1EBnhA&s" alt="" class ="product-image">
                     <div class="product-info">
-                        <h3 class="product-name">Naruto Figure</h3>
+                        <h3 class="product-name">Naruto Modern Figure</h3>
                         <p class="product-price">5.000.000đ</p>
                     </div>
                 </div>
 
-                <div class="product-card">
+                <div class="product-card" data-product-id="119">
                     <img src="https://daweebstop.com/cdn/shop/products/IMG_3927.jpg?v=1635865116&width=1445" alt="" class ="product-image">
                     <div class="product-info">
                         <h3 class="product-name">Black Goku Figure</h3>
@@ -101,7 +101,7 @@
         <section class ="catalog-section">
             <h2 class="catalog-title">GIVE YOURSELF A FIGURE TO BECOME A COLLECTOR</h2>
             <p>TO PURSUE THE FIGURE COLLECTION DREAM</p>
-            <button class="catalog-button">PURCHASE A FIGURE</button>
+            <button class="catalog-button"><a href="../ShopPage/shop-page.html">PURCHASE A FIGURE</a></button>
         </section>
 
         <section class="secure-product">
@@ -139,6 +139,18 @@
         <a href="" class="logo">J&N FIGURE STORE</a>
         <p>Copyright &copy; 2025 J&N Figure Store</p>
     </footer>
+
+    <script>
+        /// See the product details 
+        document.querySelectorAll('.product-card').forEach(card => {
+            card.style.cursor = 'pointer';
+
+            card.addEventListener('click', function () {
+                const productId = this.getAttribute('data-product-id');
+                window.location.href = `../ProductsPage/products-page.html?id=${productId}`;
+            });
+        });
+    </script>
 </body>
 
 </html>
