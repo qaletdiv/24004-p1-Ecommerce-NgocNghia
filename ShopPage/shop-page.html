@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="stylesheet" href="shop-page-style.css">
+    <script type="module" src="../Statics/main.js"></script>
 </head>
 
 <body>
@@ -16,7 +17,7 @@
         <nav class="nav-container">
             <a href="" class="logo">J&N FIGURE STORE</a>
             <ul class="nav-links">
-                <li><a href="../HomePage/home.html">HOME</a></li>
+                <li><a href="../home.html">HOME</a></li>
                 <li><a href="../AboutPage/about-page.html">ABOUT</a></li>
                 <li><a href="./shop-page.html">SHOP</a></li>
                 <li><a href="../ContactPage/contact-page.html">CONTACT</a></li>
@@ -28,7 +29,7 @@
                         <!-- Menu drop down when click on profile -->
                         <div class="profile-menu" id="profile-dropdown">
                             <ul>
-                                <li><a href="../HomePage/home.html">HOME</a></li>
+                                <li><a href="../home.html">HOME</a></li>
                                 <li><a href="../AboutPage/about-page.html">ABOUT</a></li>
                                 <li><a href="./shop-page.html">SHOP</a></li>
                                 <li><a href="../ContactPage/contact-page.html">CONTACT</a></li>
@@ -202,7 +203,7 @@
 
     <footer class="footer-content">
         <ul class="nav-links">
-            <li><a href="../HomePage/home.html">HOME</a></li>
+            <li><a href="../home.html">HOME</a></li>
             <li><a href="../AboutPage/about-page.html">ABOUT</a></li>
             <li><a href="../ShopPage/shop-page.html">SHOP</a></li>
             <li><a href="../ContactPage/contact-page.html">CONTACT</a></li>
@@ -251,13 +252,14 @@
 
         /// See the product details 
         document.querySelectorAll('.product-card').forEach(card => {
-            card.style.cursor = 'pointer';
+        card.style.cursor = 'pointer';
 
-            card.addEventListener('click', function () {
-                const productId = this.getAttribute('data-product-id');
-                window.location.href = `../ProductsPage/products-page.html?id=${productId}`;
-            });
+        card.addEventListener('click', function () {
+            const productId = this.getAttribute('data-product-id');
+            localStorage.setItem('selectedProduct', productId);
+            window.location.href = `../ProductsPage/products-page.html`;
         });
+    });
     </script>
 </body>
 

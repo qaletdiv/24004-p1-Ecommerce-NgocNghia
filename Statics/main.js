@@ -1,3 +1,4 @@
+import { products } from './mock-data.js';
 function toggleDropdown() {
     const dropdown = document.getElementById('profile-dropdown');
     dropdown.classList.toggle('show');
@@ -73,3 +74,6 @@ let isLoginMode = true;
             console.log('Signup attempt:', { name, email, password });
             alert('Signup functionality would be implemented here!');
         });
+
+        /// Local Storage
+        localStorage.setItem('products', JSON.stringify(products));
