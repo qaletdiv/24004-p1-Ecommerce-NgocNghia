@@ -5,10 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ecomerce Webpage - Shop</title>
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="stylesheet" href="shop-page-style.css">
-    <script type="module" src="../Statics/main.js"></script>
+    <script src="./shop-page.js"></script>
 </head>
 
 <body>
@@ -211,56 +210,7 @@
         <a href="" class="logo">J&N FIGURE STORE</a>
         <p>Copyright &copy; 2025 J&N Figure Store</p>
     </footer>
-
-    <script>
-
-        /// Filter
-        document.getElementById('category').addEventListener('change', function () {
-            console.log('Category filter:', this.value);
-        });
-
-        /// Price
-        document.getElementById('price').addEventListener('change', function () {
-            console.log('Price filter:', this.value);
-        });
-
-        document.querySelector('.search-btn').addEventListener('click', function () {
-            const searchTerm = document.querySelector('.search-input').value;
-            console.log('Search term:', searchTerm);
-        });
-
-        // Pages
-        document.querySelectorAll('.pagination button').forEach(button => {
-            button.addEventListener('click', function () {
-                document.querySelector('.pagination button.active').classList.remove('active');
-                this.classList.add('active');
-            });
-        });
-
-        // Add to cart
-        document.querySelectorAll('.add-to-cart-btn').forEach(button => {
-            button.addEventListener('click', function () {
-                this.style.background = 'linear-gradient(45deg, #27ae60, #20bf6b)';
-                this.textContent = 'Added!';
-
-                setTimeout(() => {
-                    this.style.background = 'linear-gradient(45deg, #667eea, #764ba2)';
-                    this.textContent = 'Add to Cart';
-                }, 2000);
-            });
-        });
-
-        /// See the product details 
-        document.querySelectorAll('.product-card').forEach(card => {
-        card.style.cursor = 'pointer';
-
-        card.addEventListener('click', function () {
-            const productId = this.getAttribute('data-product-id');
-            localStorage.setItem('selectedProduct', productId);
-            window.location.href = `../ProductsPage/products-page.html`;
-        });
-    });
-    </script>
+    <script src="./shop-page.js"></script>
 </body>
 
 </html>

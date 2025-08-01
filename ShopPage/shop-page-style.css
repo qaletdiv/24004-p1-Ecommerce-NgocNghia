@@ -533,3 +533,79 @@ main {
     color: #999;
     font-size: 0.9rem;
 }
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav-container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .nav-links {
+        gap: 1rem;
+    }
+    
+    .site-header {
+        height: 600px;
+    }
+    
+    .title-header h1 {
+        font-size: 2rem;
+    }
+    
+    .title-header p {
+        font-size: 1.3rem;
+    }
+    
+    .catalog-section {
+        height: 400px;
+    }
+    
+    .feedback-title,
+    .catalog-title {
+        font-size: 1.8rem;
+    }
+    
+    .products-grid,
+    .feedback-grid,
+    .secure-gird {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .site-header,
+    .products-section,
+    .feedback-section,
+    .secure-product {
+        padding-left: 3%;
+        padding-right: 3%;
+    }
+    
+    .site-header {
+        height: 500px;
+    }
+    
+    .catalog-section {
+        height: 350px;
+        padding: 3rem 3%;
+    }
+    
+    .title-header h1 {
+        font-size: 1.8rem;
+    }
+    
+    .catalog-title {
+        font-size: 1.5rem;
+    }
+    
+    .catalog-section p {
+        font-size: 1rem;
+    }
+    
+    .btn-header,
+    .catalog-button {
+        padding: 12px 25px;
+        font-size: 1rem;
+    }
+}
