@@ -1,3 +1,5 @@
+import { accounts } from '../Statics/mock-data.js';
+
 /// Check login and signup
 let isLoginMode = true;
 
@@ -39,11 +41,19 @@ let isLoginMode = true;
             const email = document.getElementById('loginEmail').value;
             const password = document.getElementById('loginPassword').value;
             
-            console.log('Login attempt:', { email, password });
-            alert('Login functionality would be implemented here!');
+            const storedAccounts = JSON.parse(localStorage.getItem('accounts')) || [];
+            const account = storedAccounts.find(acc => acc.email === email && acc.password === password);
+            
+            if (account) {
+                alert(`Welcome back, ${account.name}!`);
+                // Redirect to home page or dashboard
+                window.location.href = '../home.html';
+            } else {
+                alert('Invalid email or password. Please try again.');
+            }
         });
 
-        document.getElementById('signup-form-element').addEventListener('submit', function(e) {
+        document.getElementById('signup-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const name = document.getElementById('signupName').value;
             const email = document.getElementById('signupEmail').value;

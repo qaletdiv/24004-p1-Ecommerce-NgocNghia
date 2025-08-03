@@ -7,7 +7,7 @@
     <title>Ecomerce Webpage - Login</title>
     <link rel="stylesheet" href="login-page.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-    <script src="./login-page.js"></script>
+    <script type="module" src="./login-page.js"></script>
 </head>
 
 <body>
@@ -27,15 +27,15 @@
                 <h1>Hello Guest </h1>
                 <h2>Welcome To Our Store</h2>
             </div>
-            <form id="login-form">
+            <form id="login-form-element">
                 <div class="form-log">
-                    <input type="text" required id="email" placeholder="Email Address">
+                    <input type="text" required id="loginEmail" placeholder="Email Address">
                 </div>
                 <div class="form-log">
-                    <input type="text" required id="password" placeholder="Password">
+                    <input type="text" required id="loginPassword" placeholder="Password">
                 </div>
                 <div class="button-log">
-                    <button type="submit" class="btn btn-login" onclick="switchToLogin()">Login</button>
+                    <button type="submit" class="btn btn-login">Login</button>
                     <button type="button" class="btn btn-signup" onclick="switchToSignup()">Sign up</button>
                 </div>
 
