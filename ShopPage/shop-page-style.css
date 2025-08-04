@@ -56,12 +56,13 @@ body {
     display: flex;
     list-style: none;
     gap: 2rem;
+    align-items: center;
 }
 
 .nav-icons {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    gap: 2.5rem;
     margin-left: 2rem;
 }
 .nav-links a {
@@ -92,7 +93,6 @@ body {
 .nav-links a:hover::after {
     width: 100%;
 }
-
 .cart-icon, .profile-icon {
     color: #fff;
     font-size: 1.2rem;
@@ -102,23 +102,27 @@ body {
 }
 
 .cart-icon:hover, .profile-icon:hover {
-    color: #ffd700;
     transform: translateY(-2px) scale(1.1);
 }
 
+/* Profile Image Styling - Cải thiện */
 .profile-img {
-    width: 20px;
-    height: 20px;
+    width: 40px ;
+    height: 40px ;
     border-radius: 50%;
-    filter: brightness(0) invert(1);
-    transition: all 0.3s ease;
+    object-fit: cover;
     cursor: pointer;
-    top: -2px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    background-color: #f8f9fa;
+    filter: none; /* Loại bỏ filter cũ */
 }
 
 .profile-img:hover {
-    filter: brightness(0) invert(1) sepia(1) saturate(5) hue-rotate(45deg);
-    transform: scale(1.1);
+    transform: translateY(-2px) scale(1.1);
+    border-color: #ffd700;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    filter: none /* Loại bỏ filter hover cũ */
 }
 
 /* Cart badge for item count */
@@ -138,6 +142,7 @@ body {
     justify-content: center;
     animation: pulse 2s infinite;
 }
+
 
 .title-header {
     position: absolute;
@@ -608,4 +613,17 @@ main {
         padding: 12px 25px;
         font-size: 1rem;
     }
+}
+
+/* Logout button styling */
+.profile-menu .logout-btn {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 4px;
+    font-weight: 500;
+    color: #ff6b6b;
+}
+
+.profile-menu .logout-btn:hover {
+    background: rgba(255, 107, 107, 0.2);
+    color: #ff4757;
 }
