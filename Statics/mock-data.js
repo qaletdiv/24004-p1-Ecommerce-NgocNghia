@@ -77,16 +77,19 @@ export const accounts = [
     {
         email: "Johnnguyen123456@gmail.com",
         password: "Nghia123456",
+        profileImg: "https://www.meowbox.com/cdn/shop/articles/Screen_Shot_2024-03-15_at_10.53.41_AM.png?v=1710525250",
         name: "John"
     },
     {
         email: "tommyhoang222@gmail.com",
         password: "Hoang123",
+        profileImg: "https://media.tenor.com/t7_iTN0iYekAAAAe/sad-sad-cat.png",
         name: "Tommy"
     },
     {
         email: "jimmyle2211@gmail.com",
         password: "Jimmy123",
+        profileImg: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREsV-5txah2vSdTlajysAhA8j84ULeoQ-e9w&s",
         name: "Jimmy"
     },
 ];
