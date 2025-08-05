@@ -60,9 +60,9 @@ function updateProfileDropdown() {
         dropdown.innerHTML = `
             <ul>
                 <li class="user-greeting">
-                    <span style="color: #ffd700; font-weight: 600; font-size: 0.95rem; padding: 12px 20px; display: block; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
-                        Hello, ${currentUser.name}!
-                    </span>
+                    <a style="color: #ffd700; font-weight: 600; font-size: 0.95rem; padding: 12px 20px; display: block; border-bottom: 1px solid rgba(255, 255, 255, 0.1); text-align: center;">
+                         ${currentUser.name}
+                    </a>
                 </li>
                 <li><a href="../home.html">HOME</a></li>
                 <li><a href="../AboutPage/about-page.html">ABOUT</a></li>
