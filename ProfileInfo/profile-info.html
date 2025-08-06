@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - J&N FIGURE STORE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="profile-info.css">
+</head>
+<body>
+    <header class="site-header">
+        <!-- logo -->
+        <nav class="nav-container">
+            <a href="" class="logo">J&N FIGURE STORE</a>
+            <ul class="nav-links">
+                <li><a href="./home.html">HOME</a></li>
+                <li><a href="../AboutPage/about-page.html">ABOUT</a></li>
+                <li><a href="../ShopPage/shop-page.html">SHOP</a></li>
+                <li><a href="../ContactPage/contact-page.html">CONTACT</a></li>
+                <li class="nav-icons">
+                    <i class="fa-solid fa-bag-shopping cart-icon"></i>
+                    <div class="account-dropdown">
+                        <img id = "profile-logo" class="profile-img" src="https://www.svgrepo.com/show/343494/profile-user-account.svg"
+                            alt="account-logo" srcset="" onclick="toggleDropdown()">
+                        <!-- Menu drop down when click on profile -->
+                        <div class="profile-menu" id="profile-dropdown">
+                            <ul>
+                                <li><a href="./home.html">HOME</a></li>
+                                <li><a href="../AboutPage/about-page.html">ABOUT</a></li>
+                                <li><a href="../ShopPage/shop-page.html">SHOP</a></li>
+                                <li><a href="../ContactPage/contact-page.html">CONTACT</a></li>
+                                <li><a href="../LoginPage/login-page.html" class="sign-in">SIGN IN</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+        <div class="title-header">
+            <h1>Personal Information</h1>
+        </div>
+    </header>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="profile-header">
+                <h1 class="profile-title">Profile</h1>
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <div class="user-details">
+                        <h3>Hello</h3>
+                        <div class="user-name">Jenny Wilson</div>
+                    </div>
+                </div>
+            </div>
+            
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#" class="nav-link active" data-tab="account">
+                        <i class="fa-solid fa-user"></i>
+                        My Account
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-tab="addresses">
+                        <i class="fa-solid fa-map-marker-alt"></i>
+                        Addresses
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-tab="orders">
+                        <i class="fa-solid fa-box"></i>
+                        My Orders
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-tab="returns">
+                        <i class="fa-solid fa-undo"></i>
+                        Returns & Cancel
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-tab="reviews">
+                        <i class="fa-solid fa-star"></i>
+                        My Reviews
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-tab="wishlist">
+                        <i class="fa-solid fa-heart"></i>
+                        My Wishlist
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-tab="payment">
+                        <i class="fa-solid fa-credit-card"></i>
+                        Payment Methods
+                    </a>
+                </li>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-tab="support">
+                        <i class="fa-solid fa-headset"></i>
+                        Help & Support
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Account Tab -->
+            <div id="account" class="tab-content active">
+                <div class="content-header">
+                    <h2 class="content-title">Personal Information</h2>
+                    <button class="change-info-btn">
+                        <i class="fa-solid fa-edit"></i>
+                        Change Profile Information
+                    </button>
+                </div>
+
+                <div class="profile-content">
+                    <div class="profile-image-section">
+                        <div class="profile-image">
+                            <i class="fa-solid fa-user"></i>
+                            <div class="edit-icon">
+                                <i class="fa-solid fa-camera"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="profile-info">
+                        <form>
+                            <div class="form-group">
+                                <label class="form-label">Full Name</label>
+                                <input type="text" class="form-input" value="Jenny Wilson" readonly>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Date Of Birth</label>
+                                <div class="date-input">
+                                    <input type="text" class="form-input" value="20/01/2002" readonly>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Gender</label>
+                                <div class="gender-options">
+                                    <div class="gender-option">
+                                        <div class="radio-input checked"></div>
+                                        <span class="gender-label">Male</span>
+                                    </div>
+                                    <div class="gender-option">
+                                        <div class="radio-input"></div>
+                                        <span class="gender-label">Female</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Phone Number</label>
+                                <div class="phone-input-group">
+                                    <div class="country-code">
+                                        <span class="flag-icon"></span>
+                                        <span>+84</span>
+                                    </div>
+                                    <input type="tel" class="form-input phone-number" value="123-456-789" readonly>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-input" value="jenny@example.com" readonly>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Bio</label>
+                                <textarea class="form-textarea" placeholder="Tell us about yourself..." readonly>Figure collector and anime enthusiast. Love collecting rare and limited edition figures!</textarea>
+                            </div>
+
+                            <button type="button" class="save-btn" style="display: none;">Save Changes</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Addresses Tab -->
+            <div id="addresses" class="tab-content">
+                <div class="content-header">
+                    <h2 class="content-title">My Addresses</h2>
+                    <button class="add-btn" onclick="openAddressModal()">
+                        <i class="fa-solid fa-plus"></i>
+                        Add New Address
+                    </button>
+                </div>
+
+                <div class="address-grid">
+                    <div class="address-card default">
+                        <div class="address-type">
+                            <i class="fa-solid fa-home"></i>
+                            Home
+                            <span class="default-badge">Default</span>
+                        </div>
+                        <div class="address-details">
+                            Jenny Wilson<br>
+                            123 Main Street, Apt 4B<br>
+                            Ho Chi Minh City, 70000<br>
+                            Vietnam<br>
+                            Phone: +84 123-456-789
+                        </div>
+                        <div class="address-actions">
+                            <button class="btn-small btn-edit">Edit</button>
+                            <button class="btn-small btn-delete">Delete</button>
+                        </div>
+                    </div>
+
+                    <div class="address-card">
+                        <div class="address-type">
+                            <i class="fa-solid fa-building"></i>
+                            Office
+                        </div>
+                        <div class="address-details">
+                            Jenny Wilson<br>
+                            456 Business District<br>
+                            District 1, Ho Chi Minh City<br>
+                            Vietnam<br>
+                            Phone: +84 987-654-321
+                        </div>
+                        <div class="address-actions">
+                            <button class="btn-small btn-set-default">Set Default</button>
+                            <button class="btn-small btn-edit">Edit</button>
+                            <button class="btn-small btn-delete">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Orders Tab -->
+            <div id="orders" class="tab-content">
+                <div class="content-header">
+                    <h2 class="content-title">My Orders</h2>
+                </div>
+                <div class="empty-state">
+                    <i class="fa-solid fa-box"></i>
+                    <h3>No orders yet</h3>
+                    <p>Your order history will appear here</p>
+                </div>
+            </div>
+
+            <!-- Returns Tab -->
+            <div id="returns" class="tab-content">
+                <div class="content-header">
+                    <h2 class="content-title">Returns & Cancellations</h2>
+                </div>
+                <div class="empty-state">
+                    <i class="fa-solid fa-undo"></i>
+                    <h3>No returns or cancellations</h3>
+                    <p>Your return requests will appear here</p>
+                </div>
+            </div>
+
+            <!-- Reviews Tab -->
+            <div id="reviews" class="tab-content">
+                <div class="content-header">
+                    <h2 class="content-title">My Reviews</h2>
+                </div>
+                <div class="empty-state">
+                    <i class="fa-solid fa-star"></i>
+                    <h3>No reviews yet</h3>
+                    <p>Your product reviews will appear here</p>
+                </div>
+            </div>
+
+            <!-- Wishlist Tab -->
+            <div id="wishlist" class="tab-content">
+                <div class="content-header">
+                    <h2 class="content-title">My Wishlist</h2>
+                </div>
+                <div class="empty-state">
+                    <i class="fa-solid fa-heart"></i>
+                    <h3>Your wishlist is empty</h3>
+                    <p>Save figures you love for later</p>
+                </div>
+            </div>
+
+            <!-- Payment Tab -->
+            <div id="payment" class="tab-content">
+                <div class="content-header">
+                    <h2 class="content-title">Payment Methods</h2>
+                    <button class="add-btn">
+                        <i class="fa-solid fa-plus"></i>
+                        Add Payment Method
+                    </button>
+                </div>
+                <div class="empty-state">
+                    <i class="fa-solid fa-credit-card"></i>
+                    <h3>No payment methods</h3>
+                    <p>Add your payment methods for faster checkout</p>
+                </div>
+            </div>
+
+            <!-- Notifications Tab -->
+            <div id="notifications" class="tab-content">
+                <div class="content-header">
+                    <h2 class="content-title">Notification Preferences</h2>
+                </div>
+
+                <div style="padding: 20px 0;">
+                    <div class="form-group">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                            <div>
+                                <h4 style="color: #333; margin-bottom: 5px;">Email Notifications</h4>
+                                <p style="color: #666; font-size: 14px;">Get notified about orders, promotions, and updates</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                            <div>
+                                <h4 style="color: #333; margin-bottom: 5px;">SMS Notifications</h4>
+                                <p style="color: #666; font-size: 14px;">Receive text messages for order updates</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                            <div>
+                                <h4 style="color: #333; margin-bottom: 5px;">Push Notifications</h4>
+                                <p style="color: #666; font-size: 14px;">Get browser notifications for important updates</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                            <div>
+                                <h4 style="color: #333; margin-bottom: 5px;">Marketing Communications</h4>
+                                <p style="color: #666; font-size: 14px;">Receive promotional offers and new product announcements</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                            <div>
+                                <h4 style="color: #333; margin-bottom: 5px;">Order Updates</h4>
+                                <p style="color: #666; font-size: 14px;">Get notified when your order status changes</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                            <div>
+                                <h4 style="color: #333; margin-bottom: 5px;">Wishlist Alerts</h4>
+                                <p style="color: #666; font-size: 14px;">Get notified when wishlist items go on sale</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="button" class="save-btn">Save Preferences</button>
+                </div>
+            </div>
+
+            <!-- Support Tab -->
+            <div id="support" class="tab-content">
+                <div class="content-header">
+                    <h2 class="content-title">Help & Support</h2>
+                </div>
+
+                <div style="padding: 20px 0;">
+                    <div class="security-item">
+                        <div class="security-info">
+                            <div class="security-icon">
+                                <i class="fa-solid fa-question-circle"></i>
+                            </div>
+                            <div class="security-details">
+                                <h4>FAQ</h4>
+                                <p>Find answers to common questions</p>
+                            </div>
+                        </div>
+                        <button class="change-info-btn">View FAQ</button>
+                    </div>
+
+                    <div class="security-item">
+                        <div class="security-info">
+                            <div class="security-icon">
+                                <i class="fa-solid fa-comments"></i>
+                            </div>
+                            <div class="security-details">
+                                <h4>Live Chat</h4>
+                                <p>Chat with our support team</p>
+                            </div>
+                        </div>
+                        <button class="add-btn">Start Chat</button>
+                    </div>
+
+                    <div class="security-item">
+                        <div class="security-info">
+                            <div class="security-icon">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <div class="security-details">
+                                <h4>Email Support</h4>
+                                <p>Send us a detailed message</p>
+                            </div>
+                        </div>
+                        <button class="change-info-btn">Contact</button>
+                    </div>
+
+                    <div class="security-item">
+                        <div class="security-info">
+                            <div class="security-icon">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+                            <div class="security-details">
+                                <h4>Phone Support</h4>
+                                <p>Call us at +84 123-456-7890</p>
+                            </div>
+                        </div>
+                        <button class="change-info-btn">Call Now</button>
+                    </div>
+
+                    <div class="security-item">
+                        <div class="security-info">
+                            <div class="security-icon">
+                                <i class="fa-solid fa-bug"></i>
+                            </div>
+                            <div class="security-details">
+                                <h4>Report a Bug</h4>
+                                <p>Help us improve by reporting issues</p>
+                            </div>
+                        </div>
+                        <button class="change-info-btn">Report</button>
+                    </div>
+
+                    <!-- Quick Support Form -->
+                    <div style="margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 8px;">
+                        <h3 style="margin-bottom: 20px; color: #333;">Quick Support Request</h3>
+                        <form>
+                            <div class="form-group">
+                                <label class="form-label">Subject</label>
+                                <select class="form-select">
+                                    <option>Select a topic...</option>
+                                    <option>Order Issues</option>
+                                    <option>Payment Problems</option>
+                                    <option>Account Access</option>
+                                    <option>Product Questions</option>
+                                    <option>Technical Issues</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Message</label>
+                                <textarea class="form-textarea" placeholder="Describe your issue or question..."></textarea>
+                            </div>
+                            <button type="submit" class="save-btn">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Address Modal -->
+    <div id="addressModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeAddressModal()">&times;</span>
+            <h2 class="modal-title">Add New Address</h2>
+            <form>
+                <div class="form-group">
+                    <label class="form-label">Address Type</label>
+                    <select class="form-select">
+                        <option>Home</option>
+                        <option>Office</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Full Name</label>
+                    <input type="text" class="form-input" placeholder="Enter full name">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Address Line 1</label>
+                    <input type="text" class="form-input" placeholder="Street address">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Address Line 2 (Optional)</label>
+                    <input type="text" class="form-input" placeholder="Apartment, suite, etc.">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">City</label>
+                    <input type="text" class="form-input" placeholder="City">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Postal Code</label>
+                    <input type="text" class="form-input" placeholder="Postal code">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Phone Number</label>
+                    <input type="tel" class="form-input" placeholder="Phone number">
+                </div>
+                <div class="form-group">
+                    <div class="gender-option">
+                        <div class="checkbox-input"></div>
+                        <span class="gender-label">Set as default address</span>
+                    </div>
+                </div>
+                <button type="submit" class="save-btn">Save Address</button>
+                <button type="button" class="delete-btn" onclick="closeAddressModal()">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer-content">
+        <ul class="nav-links">
+            <li><a href="../home.html">HOME</a></li>
+            <li><a href="../AboutPage/about-page.html">ABOUT</a></li>
+            <li><a href="../ShopPage/shop-page.html">SHOP</a></li>
+            <li><a href="../ContactPage/contact-page.html">CONTACT</a></li>
+        </ul>
+        <a href="" class="logo">J&N FIGURE STORE</a>
+        <p>Copyright &copy; 2025 J&N Figure Store</p>
+    </footer>
+
+    <script src="profile-info.js"></script>
+</body>
+</html>
