@@ -23,8 +23,9 @@
                 <li class="nav-icons">
                     <i class="fa-solid fa-bag-shopping cart-icon"></i>
                     <div class="account-dropdown">
-                        <img id = "profile-logo" class="profile-img" src="https://www.svgrepo.com/show/343494/profile-user-account.svg"
-                            alt="account-logo" srcset="" onclick="toggleDropdown()">
+                        <img id="profile-logo" class="profile-img"
+                            src="https://www.svgrepo.com/show/343494/profile-user-account.svg" alt="account-logo"
+                            srcset="" onclick="toggleDropdown()">
                         <!-- Menu drop down when click on profile -->
                         <div class="profile-menu" id="profile-dropdown">
                             <ul>
@@ -151,38 +152,41 @@
 
     <script>
         /// See the product details 
-document.querySelectorAll('.product-card').forEach(card => {
-    card.style.cursor = 'pointer';
+        document.querySelectorAll('.product-card').forEach(card => {
+            card.style.cursor = 'pointer';
 
-    card.addEventListener('click', function () {
-        const productId = this.getAttribute('data-product-id');
-        localStorage.setItem('selectedProduct', productId);
-        window.location.href = `../ProductsPage/products-page.html`;
-    });
-});
+            card.addEventListener('click', function () {
+                const productId = this.getAttribute('data-product-id');
+                localStorage.setItem('selectedProduct', productId);
+                window.location.href = `../ProductsPage/products-page.html`;
+            });
+        });
 
-function toggleDropdown() {
-    const dropdown = document.getElementById('profile-dropdown');
-    dropdown.classList.toggle('show');
-}
-
-/// Click to drop down
-document.addEventListener('click', function (event) {
-    const dropdown = document.getElementById('profile-dropdown');
-    const profileImg = document.querySelector('.profile-img');
-
-    if (!dropdown.contains(event.target) && !profileImg.contains(event.target)) {
-        dropdown.classList.remove('show');
-    }
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    setTimeout(() => {
-        if (window.updateProfileDropdown) {
-            window.updateProfileDropdown();
+        function toggleDropdown() {
+            const dropdown = document.getElementById('profile-dropdown');
+            dropdown.classList.toggle('show');
         }
-    }, 100);
-});
+
+        /// Click to drop down
+        document.addEventListener('click', function (event) {
+            const dropdown = document.getElementById('profile-dropdown');
+            const profileImg = document.querySelector('.profile-img');
+
+            if (!dropdown.contains(event.target) && !profileImg.contains(event.target)) {
+                dropdown.classList.remove('show');
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                if (window.updateProfileDropdown) {
+                    window.updateProfileDropdown();
+                }
+            }, 100);
+        });
+
+        // Make toggleDropdown available globally
+        window.toggleDropdown = toggleDropdown;
     </script>
 </body>
 

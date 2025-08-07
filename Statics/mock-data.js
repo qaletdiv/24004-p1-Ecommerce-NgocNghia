@@ -78,18 +78,36 @@ export const accounts = [
         email: "Johnnguyen123456@gmail.com",
         password: "Nghia123456",
         profileImg: "https://www.meowbox.com/cdn/shop/articles/Screen_Shot_2024-03-15_at_10.53.41_AM.png?v=1710525250",
-        name: "John"
+        name: "John",
+        fullName: "John Nguyen",
+        DOB : "13/03/2002",
+        gender: "Male",
+        phoneNumber: "1234567890",
+        home: "112 Anime Street, Apt 4B, Ho Chi Minh city, 70000, Vietnam",
+        office: "456 Figure Store, District 1, Ho Chi Minh city, Vietnam"
     },
     {
         email: "tommyhoang222@gmail.com",
         password: "Hoang123",
         profileImg: "https://media.tenor.com/t7_iTN0iYekAAAAe/sad-sad-cat.png",
-        name: "Tommy"
+        name: "Tommy",
+        fullName: "Tommy Hoang",
+        DOB : "20/10/2001",
+        gender: "Male",
+        phoneNumber: "12233567890",
+        home: "112 Anime Street, Apt 4B, Ho Chi Minh city, 70000, Vietnam",
+        office: "456 Figure Store, District 1, Ho Chi Minh city, Vietnam"
     },
     {
         email: "jimmyle2211@gmail.com",
         password: "Jimmy123",
         profileImg: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREsV-5txah2vSdTlajysAhA8j84ULeoQ-e9w&s",
-        name: "Jimmy"
+        name: "Jimmy",
+        fullName: "Jimmy Le",
+        DOB : "21/1/1999",
+        gender: "Male",
+        phoneNumber: "12233267894",
+        home: "112 Anime Street, Apt 4B, Ho Chi Minh city, 70000, Vietnam",
+        office: "456 Figure Store, District 1, Ho Chi Minh city, Vietnam"
     },
 ];
