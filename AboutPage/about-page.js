@@ -4,10 +4,10 @@ function toggleDropdown() {
 }
 
 /// Click to drop down
-document.addEventListener('click', function(event) {
+document.addEventListener('click', function (event) {
     const dropdown = document.getElementById('profile-dropdown');
     const profileImg = document.querySelector('.profile-img');
-    
+
     if (!dropdown.contains(event.target) && !profileImg.contains(event.target)) {
         dropdown.classList.remove('show');
     }
@@ -40,9 +40,9 @@ function updateProfileDropdown() {
         dropdown.innerHTML = `
             <ul>
                 <li class="user-greeting">
-                    <a style="color: #ffd700; font-weight: 600; font-size: 0.95rem; padding: 12px 20px; display: block; border-bottom: 1px solid rgba(255, 255, 255, 0.1); text-align: center;">
-                         ${currentUser.name}
-                    </a>
+                <a href="#" onclick="goToProfile()" style="color: #ffd700; font-weight: 600; font-size: 0.95rem; padding: 12px 20px; display: block; border-bottom: 1px solid rgba(255, 255, 255, 0.1); text-align: center; cursor: pointer;">
+                ${currentUser.name}
+                </a>
                 </li>
                 <li><a href="../home.html">HOME</a></li>
                 <li><a href="../AboutPage/about-page.html">ABOUT</a></li>
@@ -63,6 +63,32 @@ function updateProfileDropdown() {
         `;
     }
 }
+/// Profile Info 
+function goToProfile() {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (!currentUser) {
+        // Get current page path to determine correct relative path
+        const currentPath = window.location.pathname;
+        if (currentPath.includes('/ProfileInfo/')) {
+            window.location.href = '../LoginPage/login-page.html';
+        } else if (currentPath.includes('home.html') || currentPath === '/') {
+            window.location.href = './LoginPage/login-page.html';
+        } else {
+            window.location.href = '../LoginPage/login-page.html';
+        }
+        return;
+    }
+
+    // Navigate to profile page based on current location
+    const currentPath = window.location.pathname;
+    if (currentPath.includes('/ProfileInfo/')) {
+        window.location.reload();
+    } else if (currentPath.includes('home.html') || currentPath === '/') {
+        window.location.href = './ProfileInfo/profile-info.html';
+    } else {
+        window.location.href = '../ProfileInfo/profile-info.html';
+    }
+}
 
 /// Log out 
 function handleLogout() {
@@ -77,4 +103,8 @@ document.addEventListener('DOMContentLoaded', () => {
     updateProfileDropdown();
 });
 
+// Make functions available globally
+window.goToProfile = goToProfile;
 window.handleLogout = handleLogout;
+window.updateProfileDropdown = updateProfileDropdown;
+window.updateProfileImage = updateProfileImage;

@@ -60,7 +60,7 @@ function updateProfileDropdown() {
         dropdown.innerHTML = `
             <ul>
                 <li class="user-greeting">
-                    <a style="color: #ffd700; font-weight: 600; font-size: 0.95rem; padding: 12px 20px; display: block; border-bottom: 1px solid rgba(255, 255, 255, 0.1); text-align: center;">
+                    <a href="#" onclick="goToProfile()" style="color: #ffd700; font-weight: 600; font-size: 0.95rem; padding: 12px 20px; display: block; border-bottom: 1px solid rgba(255, 255, 255, 0.1); text-align: center; cursor: pointer;">
                          ${currentUser.name}
                     </a>
                 </li>
@@ -84,17 +84,60 @@ function updateProfileDropdown() {
     }
 }
 
+/// Profile Info 
+function goToProfile() {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (!currentUser) {
+        // Get current page path to determine correct relative path
+        const currentPath = window.location.pathname;
+        if (currentPath.includes('/ProfileInfo/')) {
+            window.location.href = '../LoginPage/login-page.html';
+        } else if (currentPath.includes('home.html') || currentPath === '/') {
+            window.location.href = './LoginPage/login-page.html';
+        } else {
+            window.location.href = '../LoginPage/login-page.html';
+        }
+        return;
+    }
+    
+    // Navigate to profile page based on current location
+    const currentPath = window.location.pathname;
+    if (currentPath.includes('/ProfileInfo/')) {
+        window.location.reload();
+    } else if (currentPath.includes('home.html') || currentPath === '/') {
+        window.location.href = './ProfileInfo/profile-info.html';
+    } else {
+        window.location.href = '../ProfileInfo/profile-info.html';
+    }
+}
+
 /// Log out 
 function handleLogout() {
     localStorage.removeItem('currentUser');
     updateProfileImage();
     updateProfileDropdown();
     console.log('User logged out');
+    
+    // Navigate to home page after logout based on current location
+    const currentPath = window.location.pathname;
+    if (currentPath.includes('home.html') || currentPath === '/') {
+        window.location.reload();
+    } else if (currentPath.includes('/ProfileInfo/')) {
+        window.location.href = '../home.html';
+    } else {
+        window.location.href = '../home.html';
+    }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    updateProfileImage();
-    updateProfileDropdown();
-});
-
+// Make functions available globally
+window.goToProfile = goToProfile;
 window.handleLogout = handleLogout;
+window.updateProfileDropdown = updateProfileDropdown;
+window.updateProfileImage = updateProfileImage;
+
+document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+        updateProfileImage();
+        updateProfileDropdown();
+    }, 100);
+});

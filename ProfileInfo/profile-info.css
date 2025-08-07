@@ -106,7 +106,7 @@ body {
     transform: translateY(-2px) scale(1.1);
 }
 
-/* Profile Image Styling - Cải thiện */
+/* Profile Image Styling */
 .profile-img {
     width: 40px ;
     height: 40px ;
@@ -116,14 +116,14 @@ body {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     transition: all 0.3s ease;
     background-color: #f8f9fa;
-    filter: none; /* Loại bỏ filter cũ */
+    filter: none;
 }
 
 .profile-img:hover {
     transform: translateY(-2px) scale(1.1);
     border-color: #ffd700;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-    filter: none /* Loại bỏ filter hover cũ */
+    filter: none;
 }
 
 /* Cart badge for item count */
@@ -758,6 +758,7 @@ input:checked + .toggle-slider:before {
     width: 100%;
     height: 100%;
     background-color: rgba(0,0,0,0.5);
+    overflow-y: auto;
 }
 
 .modal-content {
@@ -878,4 +879,119 @@ input:checked + .toggle-slider:before {
 .footer-content p {
     color: #999;
     font-size: 0.9rem;
+}
+
+
+/* Dropdown profile */
+.account-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.profile-menu {
+    position: absolute;
+    top: calc(100% + 15px);
+    left: 50%;
+    transform: translateX(-50%) translateY(-10px);
+    background: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(15px);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    min-width: 180px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-50%) translateY(-10px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000;
+}
+
+.profile-menu.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+} 
+
+.profile-menu::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid rgba(0, 0, 0, 0.9);
+}
+
+.profile-menu ul {
+    list-style: none;
+    padding: 8px 0;
+    margin: 0;
+}
+
+.profile-menu li {
+    margin: 0;
+}
+
+.profile-menu a {
+    display: block;
+    padding: 12px 20px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    border-bottom: none;
+}
+
+.profile-menu a:hover {
+    background: rgba(255, 215, 0, 0.1);
+    color: #ffd700;
+    transform: translateX(5px);
+}
+
+.profile-menu a::after {
+    display: none;
+}
+
+.profile-menu .sign-in {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 4px;
+    font-weight: 500;
+}
+
+.profile-menu .sign-in:hover {
+    background: rgba(255, 215, 0, 0.2);
+}
+
+/* User greeting styling */
+.profile-menu .user-greeting {
+    margin: 0;
+    padding: 0;
+}
+
+.profile-menu .user-greeting span {
+    color: #ffd700;
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 12px 20px ;
+    display: block;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 215, 0, 0.1);
+    margin-bottom: 4px;
+}
+
+/* Logout button styling */
+.profile-menu .logout-btn {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 4px;
+    font-weight: 500;
+    color: #ff6b6b;
+}
+
+.profile-menu .logout-btn:hover {
+    background: rgba(255, 107, 107, 0.2);
+    color: #ff4757;
 }
