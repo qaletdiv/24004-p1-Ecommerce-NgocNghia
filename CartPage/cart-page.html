@@ -3,28 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-commerce Webpage - Products</title>
-    <link rel="stylesheet" href="products-page.css">
+    <title>Shopping Cart - J&N FIGURE STORE</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="./cart-page.css">
 </head>
 <body>
     <header class="site-header">
         <nav class="nav-container">
-            <a href="" class="logo">J&N FIGURE STORE</a>
+            <a href="#" class="logo">J&N FIGURE STORE</a>
             <ul class="nav-links">
                 <li><a href="../home.html">HOME</a></li>
                 <li><a href="../AboutPage/about-page.html">ABOUT</a></li>
                 <li><a href="../ShopPage/shop-page.html">SHOP</a></li>
                 <li><a href="../ContactPage/contact-page.html">CONTACT</a></li>
                 <li class="nav-icons">
-                    <i onclick="goToCartPage()" class="fa-solid fa-bag-shopping cart-icon"></i>
+                    <i class="fa-solid fa-bag-shopping cart-icon"></i>
                     <div class="account-dropdown">
-                        <img class="profile-img" src="https://www.svgrepo.com/show/343494/profile-user-account.svg"
-                            alt="account-logo" srcset="" onclick="toggleDropdown()">
+                        <img id="profile-logo" class="profile-img"
+                            src="https://www.svgrepo.com/show/343494/profile-user-account.svg" alt="account-logo"
+                            srcset="" onclick="toggleDropdown()">
                         <!-- Menu drop down when click on profile -->
                         <div class="profile-menu" id="profile-dropdown">
                             <ul>
-                                <li><a href="../home.html">HOME</a></li>
+                                <li><a href="./home.html">HOME</a></li>
                                 <li><a href="../AboutPage/about-page.html">ABOUT</a></li>
                                 <li><a href="../ShopPage/shop-page.html">SHOP</a></li>
                                 <li><a href="../ContactPage/contact-page.html">CONTACT</a></li>
@@ -36,7 +37,7 @@
             </ul>
         </nav>
         <div class="title-header">
-            <h1>PRODUCT DETAILS</h1>
+            <h1>SHOPPING CART</h1>
         </div>
     </header>
 
@@ -46,44 +47,25 @@
             <span>›</span>
             <a href="../ShopPage/shop-page.html">Shop</a>
             <span>›</span>
-            <span id="breadcrumb-product">Product Details</span>
+            <span>Shopping Cart</span>
         </div>
     </div>
 
-    <div id="product-container"></div>
-
-    <section class="related-products">
-        <h3>You May Also Like</h3>
-        <div id="related-grid" class="related-grid"></div>
-    </section>
+    <!-- Cart content -->
+    <div class="cart-container" id="cart-container">
+    </div>
 
     <footer class="footer-content">
         <ul class="nav-links">
-            <li><a href="../home.html">HOME</a></li>
-            <li><a href="../AboutPage/about-page.html">ABOUT</a></li>
-            <li><a href="../ShopPage/shop-page.html">SHOP</a></li>
-            <li><a href="../ContactPage/contact-page.html">CONTACT</a></li>
+            <li><a href="#">HOME</a></li>
+            <li><a href="#">ABOUT</a></li>
+            <li><a href="#">SHOP</a></li>
+            <li><a href="#">CONTACT</a></li>
         </ul>
-        <a href="" class="logo">J&N FIGURE STORE</a>
+        <a href="#" class="logo">J&N FIGURE STORE</a>
         <p>Copyright &copy; 2025 J&N Figure Store</p>
     </footer>
 
-    <script type = "module" src="./product-page.js"></script>
-    <script>
-         function toggleDropdown() {
-            const dropdown = document.getElementById('profile-dropdown');
-            dropdown.classList.toggle('show');
-        }
-
-        /// Click to drop down
-        document.addEventListener('click', function (event) {
-            const dropdown = document.getElementById('profile-dropdown');
-            const profileImg = document.querySelector('.profile-img');
-
-            if (!dropdown.contains(event.target) && !profileImg.contains(event.target)) {
-                dropdown.classList.remove('show');
-            }
-        });
-    </script>
+    <script type="module"  src="./cart-page.js"></script>
 </body>
 </html>

@@ -1,9 +1,61 @@
 import { products } from '../Statics/mock-data.js';
-const productId = parseInt(localStorage.getItem('selectedProduct'));
 
+const productId = parseInt(localStorage.getItem('selectedProduct'));
 
 let currentProduct = null;
 let currentQuantity = 1;
+let cart = [];
+
+// Helper functions for localStorage management
+function getFromStorage(key, defaultValue = null) {
+    try {
+        const item = localStorage.getItem(key);
+        return item ? JSON.parse(item) : defaultValue;
+    } catch (error) {
+        console.error(`Error reading ${key} from localStorage:`, error);
+        return defaultValue;
+    }
+}
+
+function setToStorage(key, value) {
+    try {
+        localStorage.setItem(key, JSON.stringify(value));
+    } catch (error) {
+        console.error(`Error saving ${key} to localStorage:`, error);
+    }
+}
+
+// Initialize cart data
+function initializeCart() {
+    const currentUser = getFromStorage('currentUser');
+    const cartKey = currentUser ? `cart_of_${currentUser.name}` : 'cart_guest';
+    cart = getFromStorage(cartKey, []);
+}
+
+// Save cart to localStorage
+function saveCart() {
+    const currentUser = getFromStorage('currentUser');
+    const cartKey = currentUser ? `cart_of_${currentUser.name}` : 'cart_guest';
+    setToStorage(cartKey, cart);
+}
+
+// Check if user is logged in
+function checkLoginRequired() {
+    const user = getFromStorage('currentUser');
+    return user !== null;
+}
+
+// Navigation to cart page
+function goToCartPage() {
+    if (!checkLoginRequired()) {
+        showNotification('Please login to view your cart', 'warning');
+        setTimeout(() => {
+            window.location.href = '../LoginPage/login-page.html';
+        }, 1500);
+        return;
+    }
+    window.location.href = '../CartPage/cart-page.html';
+}
 
 function changeQuantity(change) {
     currentQuantity = Math.max(1, currentQuantity + change);
@@ -11,17 +63,158 @@ function changeQuantity(change) {
 }
 
 function addToCart() {
-    showNotification(`Added ${currentQuantity} ${currentProduct.name} to cart!`);
+    // Check if user is logged in
+    if (!checkLoginRequired()) {
+        showNotification('Please login to add items to cart', 'warning');
+        setTimeout(() => {
+            window.location.href = '../LoginPage/login-page.html';
+        }, 1500);
+        return;
+    }
+
+    if (!currentProduct) {
+        showNotification('Product not found', 'error');
+        return;
+    }
+
+    // Get current quantity from input
+    const quantityInput = document.getElementById('quantity');
+    const quantity = parseInt(quantityInput.value) || 1;
+
+    // Check if item already exists in cart
+    const existingItem = cart.find(item => item.productId === currentProduct.id);
+    
+    if (existingItem) {
+        // Update quantity if item exists
+        existingItem.quantity += quantity;
+        showNotification(`Updated ${currentProduct.name} quantity in cart!`, 'success');
+    } else {
+        // Add new item to cart
+        cart.push({
+            productId: currentProduct.id,
+            quantity: quantity,
+            addedAt: new Date().toISOString()
+        });
+        showNotification(`Added ${quantity} ${currentProduct.name} to cart!`, 'success');
+    }
+
+    // Save cart to localStorage
+    saveCart();
+    
+    // Update cart icon badge if it exists
+    updateCartBadge();
 }
 
 function buyNow() {
-    showNotification(`Proceeding to checkout with ${currentQuantity} ${currentProduct.name}`, 'info');
+    // Check if user is logged in
+    if (!checkLoginRequired()) {
+        showNotification('Please login to proceed with purchase', 'warning');
+        setTimeout(() => {
+            window.location.href = '../LoginPage/login-page.html';
+        }, 1500);
+        return;
+    }
+
+    if (!currentProduct) {
+        showNotification('Product not found', 'error');
+        return;
+    }
+
+    // Get current quantity
+    const quantityInput = document.getElementById('quantity');
+    const quantity = parseInt(quantityInput.value) || 1;
+
+    // Add to cart first
+    const existingItem = cart.find(item => item.productId === currentProduct.id);
+    
+    if (existingItem) {
+        existingItem.quantity += quantity;
+    } else {
+        cart.push({
+            productId: currentProduct.id,
+            quantity: quantity,
+            addedAt: new Date().toISOString()
+        });
+    }
+
+    // Save cart
+    saveCart();
+    
+    // Show notification and redirect to checkout/cart
+    showNotification(`Proceeding to checkout with ${quantity} ${currentProduct.name}`, 'info');
+    
+    // Redirect to cart page after a short delay
+    setTimeout(() => {
+        window.location.href = '../CartPage/cart-page.html';
+    }, 1500);
+}
+
+// Update cart badge (if you have a cart icon with badge)
+function updateCartBadge() {
+    const cartIcon = document.querySelector('.cart-icon');
+    if (cartIcon) {
+        // Calculate total items in cart
+        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+        
+        // Remove existing badge
+        const existingBadge = cartIcon.querySelector('.cart-badge');
+        if (existingBadge) {
+            existingBadge.remove();
+        }
+        
+        // Add new badge if there are items
+        if (totalItems > 0) {
+            const badge = document.createElement('span');
+            badge.className = 'cart-badge';
+            badge.textContent = totalItems;
+            badge.style.cssText = `
+                position: absolute;
+                top: -2px;
+                right: -8px;
+                background: #ff4757;
+                color: white;
+                border-radius: 50%;
+                width: 20px;
+                height: 18px;
+                font-size: 0.7rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                animation: pulse 2s infinite;
+            `;
+            cartIcon.style.position = 'relative';
+            cartIcon.appendChild(badge);
+        }
+    }
 }
 
 function showNotification(message, type = 'success') {
     const notification = document.createElement('div');
     notification.className = `notification ${type}`;
     notification.textContent = message;
+    
+    // Add different colors for different types
+    const colors = {
+        success: '#27ae60',
+        error: '#e74c3c',
+        warning: '#f39c12',
+        info: '#3498db'
+    };
+    
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: ${colors[type] || colors.success};
+        color: white;
+        padding: 15px 25px;
+        border-radius: 10px;
+        z-index: 1000;
+        animation: slideInRight 0.3s ease-out;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        font-weight: 500;
+    `;
+    
     document.body.appendChild(notification);
 
     setTimeout(() => {
@@ -30,18 +223,38 @@ function showNotification(message, type = 'success') {
 }
 
 function loadProduct(productId) {
-    if (!productId) {
-        container.innerHTML = `
-            <div class="error-message">Product not found.</div>
-        `
+    const container = document.getElementById('product-container');
+    
+    if (!productId || !container) {
+        if (container) {
+            container.innerHTML = `
+                <div class="error-message" style="text-align: center; padding: 2rem; color: #e74c3c;">
+                    <h3>Product not found</h3>
+                    <p>Please select a product from the shop page.</p>
+                    <a href="../ShopPage/shop-page.html" style="color: #667eea;">Return to Shop</a>
+                </div>
+            `;
+        }
+        return;
     }
 
-    currentProduct = products.find(p => p.id === productId) || products[0];
+    currentProduct = products.find(p => p.id === productId);
+    
+    if (!currentProduct) {
+        container.innerHTML = `
+            <div class="error-message" style="text-align: center; padding: 2rem; color: #e74c3c;">
+                <h3>Product not found</h3>
+                <p>The requested product could not be found.</p>
+                <a href="../ShopPage/shop-page.html" style="color: #667eea;">Return to Shop</a>
+            </div>
+        `;
+        return;
+    }
 
-    const container = document.getElementById('product-container');
     const breadcrumb = document.getElementById('breadcrumb-product');
-
-    breadcrumb.textContent = currentProduct.name;
+    if (breadcrumb) {
+        breadcrumb.textContent = currentProduct.name;
+    }
 
     container.innerHTML = `
         <div class="product-layout">
@@ -65,15 +278,15 @@ function loadProduct(productId) {
                     </div>
                     <div class="meta-item status-available">
                         <i class="fa-solid fa-check-circle"></i>
-                        <span>${currentProduct.availability || 'In Stock'}</span>
+                        <span>In Stock</span>
                     </div>
                 </div>
                 
                 <div class="rating">
                     <div class="stars">
-                        ${'★'.repeat(Math.floor(currentProduct.rating || 5))}${'☆'.repeat(5 - Math.floor(currentProduct.rating || 5))}
+                        ★★★★★
                     </div>
-                    <span>${currentProduct.rating || 5} (${currentProduct.reviews || 0} reviews)</span>
+                    <span>5.0 (${Math.floor(Math.random() * 50) + 10} reviews)</span>
                 </div>
                 
                 <p class="product-description">${currentProduct.description}</p>
@@ -83,7 +296,7 @@ function loadProduct(productId) {
                         <span class="quantity-label">Quantity:</span>
                         <div class="quantity-controls">
                             <button class="quantity-btn" onclick="changeQuantity(-1)">-</button>
-                            <input type="number" id="quantity" class="quantity-input" value="1" min="1">
+                            <input type="number" id="quantity" class="quantity-input" value="1" min="1" onchange="currentQuantity = parseInt(this.value) || 1">
                             <button class="quantity-btn" onclick="changeQuantity(1)">+</button>
                         </div>
                     </div>
@@ -106,10 +319,15 @@ function loadProduct(productId) {
 
 function loadRelatedProducts() {
     const relatedGrid = document.getElementById('related-grid');
-    const relatedProducts = products.filter(p => p.id !== currentProduct.id);
+    if (!relatedGrid || !currentProduct) return;
+    
+    // Get products from same category or random products, excluding current product
+    const relatedProducts = products
+        .filter(p => p.id !== currentProduct.id)
+        .slice(0, 4); // Show max 4 related products
 
     relatedGrid.innerHTML = relatedProducts.map(product => `
-        <div class="related-card" onclick="loadProduct(${product.id})">
+        <div class="related-card" onclick="selectProduct(${product.id})">
             <img src="${product.image}" alt="${product.name}">
             <div class="related-card-info">
                 <h4>${product.name}</h4>
@@ -119,16 +337,15 @@ function loadRelatedProducts() {
     `).join('');
 }
 
-// Initialize page
-document.addEventListener('DOMContentLoaded', function () {
-    loadProduct(productId);
-    loadRelatedProducts();
-});
+// Function to select a new product and reload page
+function selectProduct(productId) {
+    setToStorage('selectedProduct', productId);
+    window.location.reload();
+}
 
-
-///update profile image
+// Profile management functions (same as before)
 function updateProfileImage() {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const currentUser = getFromStorage('currentUser');
     const profileLogo = document.querySelector('.profile-img');
 
     if (!profileLogo) return;
@@ -142,9 +359,8 @@ function updateProfileImage() {
     }
 }
 
-/// update menu dropdown
 function updateProfileDropdown() {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const currentUser = getFromStorage('currentUser');
     const dropdown = document.getElementById('profile-dropdown');
 
     if (!dropdown) return;
@@ -177,11 +393,9 @@ function updateProfileDropdown() {
     }
 }
 
-/// Profile Info 
 function goToProfile() {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const currentUser = getFromStorage('currentUser');
     if (!currentUser) {
-        // Get current page path to determine correct relative path
         const currentPath = window.location.pathname;
         if (currentPath.includes('/ProfileInfo/')) {
             window.location.href = '../LoginPage/login-page.html';
@@ -193,7 +407,6 @@ function goToProfile() {
         return;
     }
 
-    // Navigate to profile page based on current location
     const currentPath = window.location.pathname;
     if (currentPath.includes('/ProfileInfo/')) {
         window.location.reload();
@@ -204,21 +417,61 @@ function goToProfile() {
     }
 }
 
-/// Log out 
 function handleLogout() {
+    // Clear user data
     localStorage.removeItem('currentUser');
+    
+    // Clear user's cart
+    const currentUser = getFromStorage('currentUser');
+    if (currentUser) {
+        const cartKey = `cart_of_${currentUser.name}`;
+        localStorage.removeItem(cartKey);
+    }
+    
+    // Reset cart
+    cart = [];
+    
+    // Update UI
     updateProfileImage();
     updateProfileDropdown();
+    updateCartBadge();
+    
+    showNotification('Successfully logged out', 'info');
     console.log('User logged out');
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+function toggleDropdown() {
+    const dropdown = document.getElementById('profile-dropdown');
+    if (dropdown) {
+        dropdown.classList.toggle('show');
+    }
+}
+
+// Initialize page
+document.addEventListener('DOMContentLoaded', function () {
+    // Initialize cart data
+    initializeCart();
+    
+    // Load product and related products
+    loadProduct(productId);
+    loadRelatedProducts();
+    
+    // Update profile UI
     updateProfileImage();
     updateProfileDropdown();
+    
+    // Update cart badge
+    updateCartBadge();
 });
 
 // Make functions available globally
+window.changeQuantity = changeQuantity;
+window.addToCart = addToCart;
+window.buyNow = buyNow;
+window.selectProduct = selectProduct;
 window.goToProfile = goToProfile;
 window.handleLogout = handleLogout;
 window.updateProfileDropdown = updateProfileDropdown;
 window.updateProfileImage = updateProfileImage;
+window.toggleDropdown = toggleDropdown;
+window.goToCartPage = goToCartPage;

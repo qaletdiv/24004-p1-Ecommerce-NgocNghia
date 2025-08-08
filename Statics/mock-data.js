@@ -111,3 +111,5 @@ export const accounts = [
         office: "456 Figure Store, District 1, Ho Chi Minh city, Vietnam"
     },
 ];
+
+export const cart = [];

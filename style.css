@@ -141,7 +141,7 @@ body {
     filter: none /* Loại bỏ filter hover cũ */
 }
 
-/* Cart badge for item count */
+/* Cart badge for item count
 .cart-icon::after {
     content: '3';
     position: absolute;
@@ -157,7 +157,7 @@ body {
     align-items: center;
     justify-content: center;
     animation: pulse 2s infinite;
-}
+} */
 
 .title-header {
     position: absolute;
