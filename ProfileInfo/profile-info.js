@@ -799,6 +799,12 @@ const addressModalHTML = `
     </div>
 `;
 
+/// cart page
+function goToCartPage() {
+    window.location.href = '../CartPage/cart-page.html';
+}
+
+
 // Add modal to the body when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     if (!document.getElementById('addressModal')) {

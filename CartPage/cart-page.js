@@ -167,7 +167,7 @@ function updateCartDisplay() {
                 <h3 style="color: #333; margin-bottom: 1rem;">Login Required</h3>
                 <p style="color: #666; margin-bottom: 2rem;">You need to be logged in to view your shopping cart.<br>Please sign in to continue with your purchase.</p>
                 <button onclick="goToLogin()" class="login-btn" style="background: #667eea; color: white; border: none; padding: 12px 30px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.3s ease;">
-                    <i class="fa-solid fa-sign-in-alt"></i> Sign In
+                 Sign In
                 </button>
             </div>
         `;

@@ -152,19 +152,14 @@ function getCartFromStorage() {
 function updateCartBadge() {
     const cartIcon = document.querySelector('.cart-icon');
     if (cartIcon) {
-        // Get cart data from localStorage
         const cartData = getCartFromStorage();
 
-        // Calculate total items in cart
         const totalItems = cartData.reduce((sum, item) => sum + (item.quantity || 0), 0);
-
-        // Remove existing badge
         const existingBadge = cartIcon.querySelector('.cart-badge');
         if (existingBadge) {
             existingBadge.remove();
         }
 
-        // Add new badge if there are items
         if (totalItems > 0) {
             const badge = document.createElement('span');
             badge.className = 'cart-badge';
@@ -218,6 +213,8 @@ function triggerCartUpdate() {
 document.addEventListener('DOMContentLoaded', function () {
     // Wait a bit for other scripts to load
     setTimeout(() => {
+        updateProfileImage();
+        updateProfileDropdown();
         updateCartBadge();
     }, 100);
 });
@@ -231,11 +228,3 @@ window.goToProfile = goToProfile;
 window.handleLogout = handleLogout;
 window.updateProfileDropdown = updateProfileDropdown;
 window.updateProfileImage = updateProfileImage;
-
-document.addEventListener('DOMContentLoaded', () => {
-    setTimeout(() => {
-        updateProfileImage();
-        updateProfileDropdown();
-    }, 100);
-});
-

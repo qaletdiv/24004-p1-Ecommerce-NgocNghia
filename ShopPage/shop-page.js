@@ -235,6 +235,9 @@ function triggerCartUpdate() {
     window.dispatchEvent(event);
 }
 
+function goToCartPage() {
+    window.location.href = '../CartPage/cart-page.html';
+}
 // Initialize cart badge when page loads
 document.addEventListener('DOMContentLoaded', function () {
     // Wait a bit for other scripts to load

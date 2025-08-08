@@ -195,6 +195,11 @@ document.addEventListener('DOMContentLoaded', function () {
     }, 100);
 });
 
+/// cart page
+function goToCartPage() {
+    window.location.href = '../CartPage/cart-page.html';
+}
+
 // Make functions available globally
 window.updateCartBadge = updateCartBadge;
 window.refreshCartBadge = refreshCartBadge;

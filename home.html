@@ -181,14 +181,6 @@
             window.location.href = './CartPage/cart-page.html';
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            setTimeout(() => {
-                if (window.updateProfileDropdown) {
-                    window.updateProfileDropdown();
-                }
-            }, 100);
-        });
-
         // Make available globally
         window.toggleDropdown = toggleDropdown;
         window.goToCartPage = goToCartPage;
