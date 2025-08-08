@@ -129,7 +129,104 @@ function handleLogout() {
     }
 }
 
+
+// Helper functions for localStorage management
+function getFromStorage(key, defaultValue = null) {
+    try {
+        const item = localStorage.getItem(key);
+        return item ? JSON.parse(item) : defaultValue;
+    } catch (error) {
+        console.error(`Error reading ${key} from localStorage:`, error);
+        return defaultValue;
+    }
+}
+
+// Get cart data from localStorage
+function getCartFromStorage() {
+    const currentUser = getFromStorage('currentUser');
+    const cartKey = currentUser ? `cart_of_${currentUser.name}` : 'cart_guest';
+    return getFromStorage(cartKey, []);
+}
+
+// Updated cart badge function that reads from localStorage
+function updateCartBadge() {
+    const cartIcon = document.querySelector('.cart-icon');
+    if (cartIcon) {
+        // Get cart data from localStorage
+        const cartData = getCartFromStorage();
+
+        // Calculate total items in cart
+        const totalItems = cartData.reduce((sum, item) => sum + (item.quantity || 0), 0);
+
+        // Remove existing badge
+        const existingBadge = cartIcon.querySelector('.cart-badge');
+        if (existingBadge) {
+            existingBadge.remove();
+        }
+
+        // Add new badge if there are items
+        if (totalItems > 0) {
+            const badge = document.createElement('span');
+            badge.className = 'cart-badge';
+            badge.textContent = totalItems;
+            badge.style.cssText = `
+            position: absolute;
+            top: -2px;
+            right: -8px;
+            background: #ff4757;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 18px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: pulse 2s infinite;
+            `;
+            cartIcon.style.position = 'relative';
+            cartIcon.appendChild(badge);
+        }
+    }
+}
+
+// Function to refresh cart badge (useful for calling from other pages)
+function refreshCartBadge() {
+    updateCartBadge();
+}
+
+// Listen for storage changes (when cart is updated in other tabs)
+window.addEventListener('storage', function (e) {
+    // Check if a cart-related key was changed
+    if (e.key && (e.key.includes('cart_of_') || e.key === 'cart_guest')) {
+        updateCartBadge();
+    }
+});
+
+// Listen for custom cart update events
+window.addEventListener('cartUpdated', function () {
+    updateCartBadge();
+});
+
+// Function to trigger cart update event (call this when cart changes)
+function triggerCartUpdate() {
+    const event = new CustomEvent('cartUpdated');
+    window.dispatchEvent(event);
+}
+
+// Initialize cart badge when page loads
+document.addEventListener('DOMContentLoaded', function () {
+    // Wait a bit for other scripts to load
+    setTimeout(() => {
+        updateCartBadge();
+    }, 100);
+});
+
 // Make functions available globally
+window.updateCartBadge = updateCartBadge;
+window.refreshCartBadge = refreshCartBadge;
+window.triggerCartUpdate = triggerCartUpdate;
+window.getCartFromStorage = getCartFromStorage;
 window.goToProfile = goToProfile;
 window.handleLogout = handleLogout;
 window.updateProfileDropdown = updateProfileDropdown;
@@ -141,3 +238,4 @@ document.addEventListener('DOMContentLoaded', () => {
         updateProfileDropdown();
     }, 100);
 });
+

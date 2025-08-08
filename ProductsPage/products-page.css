@@ -56,6 +56,7 @@ body {
     display: flex;
     list-style: none;
     gap: 2rem;
+    align-items: center;
 }
 
 .nav-icons {
@@ -126,7 +127,7 @@ body {
 }
 
 /* Cart badge for item count */
-.cart-icon::after {
+/* .cart-icon::after {
     content: '3';
     position: absolute;
     top: -2px;
@@ -141,7 +142,7 @@ body {
     align-items: center;
     justify-content: center;
     animation: pulse 2s infinite;
-}
+} */
 
 
 .title-header {
@@ -686,4 +687,38 @@ body {
 .profile-menu .logout-btn:hover {
     background: rgba(255, 107, 107, 0.2);
     color: #ff4757;
+}
+
+
+/* Footer */
+.footer-content {
+    background: #333;
+    color: white;
+    padding: 3rem 5%;
+    text-align: center;
+}
+
+.footer-content .nav-links {
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.footer-content .nav-links a {
+    color: #ccc;
+    transition: color 0.3s ease;
+}
+
+.footer-content .nav-links a:hover {
+    color: #ffd700;
+}
+
+.footer-content .logo {
+    display: block;
+    margin: 2rem 0 1rem;
+    font-size: 1.5rem;
+}
+
+.footer-content p {
+    color: #999;
+    font-size: 0.9rem;
 }

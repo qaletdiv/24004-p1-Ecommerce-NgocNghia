@@ -140,7 +140,7 @@ body {
 }
 
 /* Cart badge for item count */
-.cart-icon::after {
+/* .cart-icon::after {
     content: '3';
     position: absolute;
     top: -2px;
@@ -155,7 +155,7 @@ body {
     align-items: center;
     justify-content: center;
     animation: pulse 2s infinite;
-}
+} */
 
 
 .title-header {
