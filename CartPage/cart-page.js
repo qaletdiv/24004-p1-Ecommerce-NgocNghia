@@ -287,7 +287,7 @@ function proceedToCheckout() {
     });
 
     // Here you could redirect to a checkout page
-    // window.location.href = '../CheckoutPage/checkout-page.html';
+    window.location.href = '../CheckoutPage/checkout-page.html';
 }
 
 // Show notification
@@ -466,22 +466,22 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         
         .quantity-btn:hover:not(:disabled) {
-            background: #5a6fd8 !important;
+            background: #5a6fd8;
             transform: scale(1.05);
         }
         
         .checkout-btn:hover:not(:disabled) {
-            background: #219a52 !important;
+            background: #219a52;
             transform: translateY(-2px);
         }
         
         .continue-shopping:hover {
             background: #667eea !important;
-            color: white !important;
+            color: white;
         }
         
         .remove-btn:hover {
-            background: #c0392b !important;
+            background: #c0392b;
             transform: scale(1.05);
         }
         
@@ -491,7 +491,7 @@ document.addEventListener('DOMContentLoaded', function () {
         
         .cart-item:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15) !important;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
         }
     `;
     document.head.appendChild(style);

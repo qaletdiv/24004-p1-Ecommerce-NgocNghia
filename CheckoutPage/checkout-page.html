@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - J&N FIGURE STORE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="./checkout-page.css">
+</head>
+<body>
+    <header class="site-header">
+        <nav class="nav-container">
+            <a href="#" class="logo">J&N FIGURE STORE</a>
+            <ul class="nav-links">
+                <li><a href="../home.html">HOME</a></li>
+                <li><a href="../AboutPage/about-page.html">ABOUT</a></li>
+                <li><a href="../ShopPage/shop-page.html">SHOP</a></li>
+                <li><a href="../ContactPage/contact-page.html">CONTACT</a></li>
+                <li class="nav-icons">
+                    <i class="fa-solid fa-bag-shopping cart-icon"></i>
+                    <div class="account-dropdown">
+                        <img id="profile-logo" class="profile-img"
+                            src="https://www.svgrepo.com/show/343494/profile-user-account.svg" alt="account-logo"
+                            onclick="toggleDropdown()">
+                        <div class="profile-menu" id="profile-dropdown">
+                            <ul>
+                                <li><a href="../home.html">HOME</a></li>
+                                <li><a href="../AboutPage/about-page.html">ABOUT</a></li>
+                                <li><a href="../ShopPage/shop-page.html">SHOP</a></li>
+                                <li><a href="../ContactPage/contact-page.html">CONTACT</a></li>
+                                <li><a href="../LoginPage/login-page.html" class="sign-in">SIGN IN</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+        <div class="title-header">
+            <h1>SECURE CHECKOUT</h1>
+        </div>
+    </header>
+
+    <div class="breadcrumb">
+        <div class="breadcrumb-nav">
+            <a href="../home.html">Home</a>
+            <span>›</span>
+            <a href="../ShopPage/shop-page.html">Shop</a>
+            <span>›</span>
+            <a href="../CartPage/cart-page.html">Cart</a>
+            <span>›</span>
+            <span>Checkout</span>
+        </div>
+    </div>
+
+    <!-- Checkout Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-steps">
+            <div class="step active" data-step="1">
+                <div class="step-circle">
+                    <i class="fa-solid fa-shopping-cart"></i>
+                </div>
+                <span>Cart</span>
+            </div>
+            <div class="step active" data-step="2">
+                <div class="step-circle">
+                    <i class="fa-solid fa-truck"></i>
+                </div>
+                <span>Shipping</span>
+            </div>
+            <div class="step" data-step="3">
+                <div class="step-circle">
+                    <i class="fa-solid fa-credit-card"></i>
+                </div>
+                <span>Payment</span>
+            </div>
+            <div class="step" data-step="4">
+                <div class="step-circle">
+                    <i class="fa-solid fa-check"></i>
+                </div>
+                <span>Complete</span>
+            </div>
+        </div>
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+    </div>
+
+    <!-- Checkout Content -->
+    <div class="checkout-container" id="checkout-container">
+        <div class="checkout-form">
+            <form id="checkout-form">
+                <!-- Shipping Information -->
+                <div class="form-section">
+                    <h3><i class="fa-solid fa-truck"></i> Shipping Information</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="firstName">First Name *</label>
+                            <input type="text" id="firstName" name="firstName" required>
+                            <span class="error-message"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name *</label>
+                            <input type="text" id="lastName" name="lastName" required>
+                            <span class="error-message"></span>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required>
+                            <span class="error-message"></span>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="phone">Phone Number *</label>
+                            <input type="tel" id="phone" name="phone" required>
+                            <span class="error-message"></span>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="address">Street Address *</label>
+                            <input type="text" id="address" name="address" required>
+                            <span class="error-message"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="city">City *</label>
+                            <input type="text" id="city" name="city" required>
+                            <span class="error-message"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="state">State/Province</label>
+                            <input type="text" id="state" name="state">
+                            <span class="error-message"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="zipCode">Zip/Postal Code *</label>
+                            <input type="text" id="zipCode" name="zipCode" required>
+                            <span class="error-message"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="country">Country *</label>
+                            <select id="country" name="country" required>
+                                <option value="">Select Country</option>
+                                <option value="VN">Vietnam</option>
+                                <option value="US">United States</option>
+                                <option value="CA">Canada</option>
+                                <option value="GB">United Kingdom</option>
+                                <option value="AU">Australia</option>
+                                <option value="JP">Japan</option>
+                                <option value="KR">South Korea</option>
+                                <option value="SG">Singapore</option>
+                                <option value="TH">Thailand</option>
+                                <option value="MY">Malaysia</option>
+                            </select>
+                            <span class="error-message"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment Information -->
+                <div class="form-section">
+                    <h3><i class="fa-solid fa-credit-card"></i> Payment Information</h3>
+                    
+                    <!-- Payment Method Selection -->
+                    <div class="payment-methods">
+                        <div class="payment-option">
+                            <input type="radio" id="credit-card" name="paymentMethod" value="credit-card" checked>
+                            <label for="credit-card">
+                                <i class="fa-solid fa-credit-card"></i>
+                                Credit/Debit Card
+                            </label>
+                        </div>
+                        <div class="payment-option">
+                            <input type="radio" id="paypal" name="paymentMethod" value="paypal">
+                            <label for="paypal">
+                                <i class="fa-brands fa-paypal"></i>
+                                PayPal
+                            </label>
+                        </div>
+                        <div class="payment-option">
+                            <input type="radio" id="bank-transfer" name="paymentMethod" value="bank-transfer">
+                            <label for="bank-transfer">
+                                <i class="fa-solid fa-university"></i>
+                                Bank Transfer
+                            </label>
+                        </div>
+                        <div class="payment-option">
+                            <input type="radio" id="cod" name="paymentMethod" value="cod">
+                            <label for="cod">
+                                <i class="fa-solid fa-money-bill"></i>
+                                Cash on Delivery
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Credit Card Form -->
+                    <div class="payment-form" id="credit-card-form">
+                        <div class="form-grid">
+                            <div class="form-group full-width">
+                                <label for="cardNumber">Card Number *</label>
+                                <input type="text" id="cardNumber" name="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19">
+                                <span class="error-message"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="expiryDate">Expiry Date *</label>
+                                <input type="text" id="expiryDate" name="expiryDate" placeholder="MM/YY" maxlength="5">
+                                <span class="error-message"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="cvv">CVV *</label>
+                                <input type="text" id="cvv" name="cvv" placeholder="123" maxlength="4">
+                                <span class="error-message"></span>
+                            </div>
+                            <div class="form-group full-width">
+                                <label for="cardName">Name on Card *</label>
+                                <input type="text" id="cardName" name="cardName" required>
+                                <span class="error-message"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PayPal Form -->
+                    <div class="payment-form" id="paypal-form" style="display: none;">
+                        <div class="paypal-info">
+                            <p><i class="fa-brands fa-paypal"></i> You will be redirected to PayPal to complete your payment securely.</p>
+                        </div>
+                    </div>
+
+                    <!-- Bank Transfer Form -->
+                    <div class="payment-form" id="bank-transfer-form" style="display: none;">
+                        <div class="bank-info">
+                            <h4>Bank Transfer Details</h4>
+                            <p><strong>Bank:</strong> J&N Figure Store Bank</p>
+                            <p><strong>Account Name:</strong> J&N Figure Store Ltd.</p>
+                            <p><strong>Account Number:</strong> 1234567890</p>
+                            <p><strong>SWIFT Code:</strong> JNFGVNVX</p>
+                            <p class="note">Please include your order number in the transfer reference.</p>
+                        </div>
+                    </div>
+
+                    <!-- Cash on Delivery Form -->
+                    <div class="payment-form" id="cod-form" style="display: none;">
+                        <div class="cod-info">
+                            <p><i class="fa-solid fa-info-circle"></i> You will pay when your order is delivered to your address.</p>
+                            <p class="note">Additional COD fee: 20,000₫</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Special Instructions -->
+                <div class="form-section">
+                    <h3><i class="fa-solid fa-sticky-note"></i> Special Instructions</h3>
+                    <div class="form-group full-width">
+                        <label for="instructions">Delivery Instructions (Optional)</label>
+                        <textarea id="instructions" name="instructions" rows="4" placeholder="Any special delivery instructions..."></textarea>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Order Summary -->
+        <div class="order-summary" id="order-summary">
+            <h3><i class="fa-solid fa-receipt"></i> Order Summary</h3>
+            <div class="summary-items" id="summary-items">
+                <!-- Items will be loaded here -->
+            </div>
+            <div class="summary-totals" id="summary-totals">
+                <!-- Totals will be loaded here -->
+            </div>
+            <button type="button" class="place-order-btn" id="place-order-btn">
+                <i class="fa-solid fa-lock"></i> Place Order
+            </button>
+            <button type="button" class="back-to-cart-btn" onclick="goToCart()">
+                <i class="fa-solid fa-arrow-left"></i> Back to Cart
+            </button>
+            <div class="security-badges">
+                <div class="badge">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>256-bit SSL</span>
+                </div>
+                <div class="badge">
+                    <i class="fa-solid fa-lock"></i>
+                    <span>Secure Payment</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Confirmation Modal -->
+    <div class="modal" id="order-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fa-solid fa-check-circle"></i> Order Confirmed!</h2>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Order details will be inserted here -->
+            </div>
+            <div class="modal-footer">
+                <button class="continue-shopping-btn" onclick="goToShop()">Continue Shopping</button>
+                <button class="view-orders-btn" onclick="viewOrders()">View My Orders</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer-content">
+        <ul class="nav-links">
+            <li><a href="#">HOME</a></li>
+            <li><a href="#">ABOUT</a></li>
+            <li><a href="#">SHOP</a></li>
+            <li><a href="#">CONTACT</a></li>
+        </ul>
+        <a href="#" class="logo">J&N FIGURE STORE</a>
+        <p>Copyright &copy; 2025 J&N Figure Store</p>
+    </footer>
+
+    <script type="module" src="./checkout-page.js"></script>
+</body>
+</html>

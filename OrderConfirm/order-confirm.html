@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation - J&N FIGURE STORE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="./order-confirm.css">
+</head>
+<body>
+    <header class="site-header">
+        <nav class="nav-container">
+            <a href="#" class="logo">J&N FIGURE STORE</a>
+            <ul class="nav-links">
+                <li><a href="../home.html">HOME</a></li>
+                <li><a href="../AboutPage/about-page.html">ABOUT</a></li>
+                <li><a href="../ShopPage/shop-page.html">SHOP</a></li>
+                <li><a href="../ContactPage/contact-page.html">CONTACT</a></li>
+                <li class="nav-icons">
+                    <i class="fa-solid fa-bag-shopping cart-icon"></i>
+                    <div class="account-dropdown">
+                        <img id="profile-logo" class="profile-img"
+                            src="https://www.svgrepo.com/show/343494/profile-user-account.svg" alt="account-logo"
+                            onclick="toggleDropdown()">
+                        <div class="profile-menu" id="profile-dropdown">
+                            <ul>
+                                <li><a href="../home.html">HOME</a></li>
+                                <li><a href="../AboutPage/about-page.html">ABOUT</a></li>
+                                <li><a href="../ShopPage/shop-page.html">SHOP</a></li>
+                                <li><a href="../ContactPage/contact-page.html">CONTACT</a></li>
+                                <li><a href="../LoginPage/login-page.html" class="sign-in">SIGN IN</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="confirmation-container">
+        <!-- Success Icon and Message -->
+        <div class="success-section">
+            <h1>Order Confirmed!</h1>
+            <p class="success-message">Thank you for your order! Your order has been confirmed and will be processed shortly.</p>
+        </div>
+
+        <!-- Order Details Card -->
+        <div class="order-card">
+            <div class="card-header">
+                <h2><i class="fa-solid fa-receipt"></i> Order Details</h2>
+            </div>
+            <div class="card-body" id="order-details-content">
+                <!-- Order details will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Order Items -->
+        <div class="order-items-card">
+            <div class="card-header">
+                <h2><i class="fa-solid fa-box"></i> Order Items</h2>
+            </div>
+            <div class="card-body" id="order-items-content">
+                <!-- Order items will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <button class="primary-btn" onclick="goToShop()">
+                <i class="fa-solid fa-shopping-bag"></i> Continue Shopping
+            </button>
+            <button class="secondary-btn" onclick="viewOrders()">
+                <i class="fa-solid fa-list"></i> View My Orders
+            </button>
+            <button class="secondary-btn" onclick="printOrder()">
+                <i class="fa-solid fa-print"></i> Print Order
+            </button>
+        </div>
+
+        <!-- Email Notification -->
+        <div class="email-notification">
+            <i class="fa-solid fa-envelope"></i>
+            <p>A confirmation email will be sent to <strong id="customer-email">your email address</strong></p>
+        </div>
+
+        <!-- Security Badges -->
+        <div class="security-section">
+            <div class="security-badges">
+                <div class="badge">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>256-bit SSL</span>
+                </div>
+                <div class="badge">
+                    <i class="fa-solid fa-lock"></i>
+                    <span>Secure Payment</span>
+                </div>
+                <div class="badge">
+                    <i class="fa-solid fa-truck"></i>
+                    <span>Safe Delivery</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Screen (shown initially) -->
+    <div class="loading-screen" id="loading-screen">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <h2>Processing Your Order...</h2>
+            <p>Please wait while we confirm your order details</p>
+        </div>
+    </div>
+
+    <footer class="footer-content">
+        <ul class="nav-links">
+            <li><a href="#">HOME</a></li>
+            <li><a href="#">ABOUT</a></li>
+            <li><a href="#">SHOP</a></li>
+            <li><a href="#">CONTACT</a></li>
+        </ul>
+        <a href="#" class="logo">J&N FIGURE STORE</a>
+        <p>Copyright &copy; 2025 J&N Figure Store</p>
+    </footer>
+
+    <script type="module" src="./order-confirm.js"></script>
+</body>
+</html>
