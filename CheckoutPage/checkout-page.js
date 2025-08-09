@@ -354,7 +354,7 @@ function handlePaymentMethodChange() {
     });
 }
 
-// Place order
+/// Place order
 function placeOrder() {
     if (!validateForm()) {
         showNotification('Please fix the errors in the form', 'error');
@@ -387,14 +387,19 @@ function placeOrder() {
         removeFromStorage(cartKey);
         removeFromStorage('checkoutData');
 
-        // Update progress and show success modal
+        // Update progress
         updateProgress(4);
-        showOrderConfirmation(newOrder);
 
         placeOrderBtn.classList.remove('loading');
         placeOrderBtn.disabled = false;
 
-        showNotification('Order placed successfully!', 'success');
+        showNotification('Order placed successfully! Redirecting...', 'success');
+
+        // Redirect to order confirmation page with order number
+        setTimeout(() => {
+            window.location.href = `../OrderConfirm/order-confirm.html?orderNumber=${orderNumber}`;
+        }, 1500);
+
     }, 2000);
 }
 
@@ -440,39 +445,6 @@ function getEstimatedDelivery() {
     const deliveryDate = new Date();
     deliveryDate.setDate(deliveryDate.getDate() + 7); // 7 days from now
     return deliveryDate.toISOString();
-}
-
-// Show order confirmation modal
-function showOrderConfirmation(order) {
-    const modal = document.getElementById('order-modal');
-    const modalBody = document.getElementById('modal-body');
-
-    const deliveryDate = new Date(order.estimatedDelivery).toLocaleDateString('en-US', {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-    });
-
-    modalBody.innerHTML = `
-        <p>Thank you for your order! Your order has been confirmed and will be processed shortly.</p>
-        <div class="order-details">
-            <h4>Order Details</h4>
-            <p><strong>Order Number:</strong> <span class="order-number">${order.orderNumber}</span></p>
-            <p><strong>Total Amount:</strong> ${order.totals.total}₫</p>
-            <p><strong>Payment Method:</strong> ${getPaymentMethodName(order.payment.method)}</p>
-            <p><strong>Estimated Delivery:</strong> ${deliveryDate}</p>
-            <p><strong>Delivery Address:</strong><br>
-               ${order.shipping.firstName} ${order.shipping.lastName}<br>
-               ${order.shipping.address}<br>
-               ${order.shipping.city}, ${order.shipping.state} ${order.shipping.zipCode}<br>
-               ${order.shipping.country}
-            </p>
-        </div>
-        <p>A confirmation email will be sent to <strong>${order.shipping.email}</strong></p>
-    `;
-
-    modal.classList.add('show');
 }
 
 // Get payment method display name
