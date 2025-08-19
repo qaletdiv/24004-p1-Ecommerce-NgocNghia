@@ -47,6 +47,18 @@
         </div>
     </header>
 
+    <!-- Search Bar Section -->
+    <section class="search-container">
+        <div class="search-wrapper">
+            <input type="text" class="search-box" id="searchInput"
+                placeholder="Search for figures (e.g., Pain, Naruto, Goku)...">
+            <button class="search-btn" onclick="performSearch()">
+                <i class="fa-solid fa-search"></i>
+            </button>
+        </div>
+        <div class="search-results-info" id="searchInfo"></div>
+    </section>
+
     <main>
         <section class="products-section">
             <div class="products-grid">
@@ -151,23 +163,142 @@
     </footer>
 
     <script>
-        /// See the product details 
-        document.querySelectorAll('.product-card').forEach(card => {
-            card.style.cursor = 'pointer';
+        function getProductsFromStorage() {
+            try {
+                const products = localStorage.getItem('products');
+                return products ? JSON.parse(products) : [];
+            } catch (error) {
+                console.error('Error reading products from localStorage:', error);
+                return [];
+            }
+        }
 
-            card.addEventListener('click', function () {
-                const productId = this.getAttribute('data-product-id');
-                localStorage.setItem('selectedProduct', productId);
-                window.location.href = `../ProductsPage/products-page.html`;
+        // Create product card HTML
+        function createProductCard(product) {
+            return `
+        <div class="product-card" data-product-id="${product.id}" data-name="${product.name.toLowerCase()}">
+            <img src="${product.image}" alt="${product.name}" class="product-image">
+            <div class="product-info">
+                <h3 class="product-name">${product.name}</h3>
+                <p class="product-price">${product.price}</p>
+            </div>
+        </div>
+    `;
+        }
+
+        // Render products to the grid
+        function renderProducts(productsToShow = null) {
+            const productsGrid = document.querySelector('.products-grid');
+            const allProducts = getProductsFromStorage();
+            const products = productsToShow || allProducts;
+
+            if (products.length === 0) {
+                productsGrid.innerHTML = '<p class="no-products">No products found.</p>';
+                return;
+            }
+
+            productsGrid.innerHTML = products.map(product => createProductCard(product)).join('');
+
+            // Re-attach click events to product cards
+            attachProductCardEvents();
+        }
+
+        // Attach click events to product cards
+        function attachProductCardEvents() {
+            document.querySelectorAll('.product-card').forEach(card => {
+                card.style.cursor = 'pointer';
+
+                card.addEventListener('click', function () {
+                    const productId = this.getAttribute('data-product-id');
+                    localStorage.setItem('selectedProduct', productId);
+                    window.location.href = `../ProductsPage/products-page.html`;
+                });
             });
+        }
+
+        // Search functionality
+        function performSearch() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+            filterProducts(searchTerm);
+        }
+
+        function filterProducts(searchTerm) {
+            const allProducts = getProductsFromStorage();
+            const searchInfo = document.getElementById('searchInfo');
+
+            if (searchTerm === '') {
+                // Show all products when search is empty
+                renderProducts();
+                searchInfo.textContent = '';
+                return;
+            }
+
+            // Filter products based on search term
+            const filteredProducts = allProducts.filter(product =>
+                product.name.toLowerCase().includes(searchTerm) ||
+                product.description.toLowerCase().includes(searchTerm) ||
+                product.category.toLowerCase().includes(searchTerm)
+            );
+
+            // Render filtered products
+            renderProducts(filteredProducts);
+
+            // Update search info
+            if (filteredProducts.length === 0) {
+                searchInfo.textContent = `No results found for "${searchTerm}"`;
+                searchInfo.style.color = '#ff6b6b';
+            } else {
+                searchInfo.textContent = `Found ${filteredProducts.length} product${filteredProducts.length !== 1 ? 's' : ''} for "${searchTerm}"`;
+                searchInfo.style.color = '#28a745';
+            }
+        }
+
+        // Real-time search as user types
+        document.addEventListener('DOMContentLoaded', function () {
+            // Initial render of all products
+            renderProducts();
+
+            const searchInput = document.getElementById('searchInput');
+
+            // Real-time search
+            searchInput.addEventListener('input', function () {
+                const searchTerm = this.value.toLowerCase().trim();
+                filterProducts(searchTerm);
+            });
+
+            // Search on Enter key press
+            searchInput.addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
+
+            // Clear search when input is focused and empty
+            searchInput.addEventListener('focus', function () {
+                if (this.value === '') {
+                    filterProducts('');
+                }
+            });
+
+            // Make sure other functions are available
+            setTimeout(() => {
+                updateProfileImage();
+                updateProfileDropdown();
+                updateCartBadge();
+            }, 100);
         });
 
+        // Keep existing functions
         function toggleDropdown() {
             const dropdown = document.getElementById('profile-dropdown');
             dropdown.classList.toggle('show');
         }
 
-        /// Click to drop down
+        function goToCartPage() {
+            window.location.href = './CartPage/cart-page.html';
+        }
+
+        // Click outside to close dropdown
         document.addEventListener('click', function (event) {
             const dropdown = document.getElementById('profile-dropdown');
             const profileImg = document.querySelector('.profile-img');
@@ -176,14 +307,11 @@
                 dropdown.classList.remove('show');
             }
         });
-        /// cart page
-        function goToCartPage() {
-            window.location.href = './CartPage/cart-page.html';
-        }
 
-        // Make available globally
+        // Make functions available globally
         window.toggleDropdown = toggleDropdown;
         window.goToCartPage = goToCartPage;
+        window.performSearch = performSearch;
     </script>
 </body>
 
