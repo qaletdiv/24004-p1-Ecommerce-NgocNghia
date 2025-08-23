@@ -11,8 +11,6 @@ body {
     background-color: #f8f9fa;
 }
 
-/* HomePage */
-
 /* Header */
 .site-header {
     background-image: url('https://wallpapercave.com/wp/wp3271343.jpg');
@@ -34,17 +32,6 @@ body {
     right: 0;
     bottom: 0;
     background: rgba(0, 0, 0, 0.4);
-    z-index: 1;
-}
-
-.catalog-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
     z-index: 1;
 }
 
@@ -121,43 +108,22 @@ body {
     transform: translateY(-2px) scale(1.1);
 }
 
-/* Profile Image Styling - Cải thiện */
 .profile-img {
-    width: 40px ;
-    height: 40px ;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     object-fit: cover;
     cursor: pointer;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     transition: all 0.3s ease;
     background-color: #f8f9fa;
-    filter: none; /* Loại bỏ filter cũ */
 }
 
 .profile-img:hover {
     transform: translateY(-2px) scale(1.1);
     border-color: #ffd700;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-    filter: none /* Loại bỏ filter hover cũ */
 }
-
-/* Cart badge for item count
-.cart-icon::after {
-    content: '3';
-    position: absolute;
-    top: -2px;
-    right: -8px;
-    background: #ff4757;
-    color: white;
-    border-radius: 50%;
-    width: 20px;
-    height: 18px;
-    font-size: 0.7rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    animation: pulse 2s infinite;
-} */
 
 .title-header {
     position: absolute;
@@ -183,12 +149,6 @@ body {
     animation: fadeInUp 1s ease-out 0.3s both;
 }
 
-.btn-header a{
-    text-decoration: none;
-    color: #333;
-    font-size: 1.3rem;
-    font-weight: bold;
-}
 .btn-header {
     background: linear-gradient(45deg, #ffd700, #ffed4a);
     padding: 15px 30px;
@@ -202,13 +162,19 @@ body {
     animation: fadeInUp 1s ease-out 0.6s both;
 }
 
+.btn-header a {
+    text-decoration: none;
+    color: #333;
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
 .btn-header:hover {
     transform: translateY(-3px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
     background: linear-gradient(45deg, #ffed4a, #ffd700);
 }
 
-/* Animations */
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -220,80 +186,63 @@ body {
     }
 }
 
-@keyframes pulse {
-    0% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.1);
-    }
-    100% {
-        transform: scale(1);
-    }
+/* Search Bar Styles */
+.search-container {
+    padding: 2rem 5%;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Main Content */
-main {
-    padding: 4rem 0;
+.search-wrapper {
+    max-width: 600px;
+    margin: 0 auto;
+    position: relative;
 }
 
- /* Search Bar Styles */
-        .search-container {
-            padding: 2rem 5%;
-            background: white;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
+.search-box {
+    width: 100%;
+    padding: 15px 50px 15px 20px;
+    border: 2px solid #e0e0e0;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    background: #f8f9fa;
+}
 
-        .search-wrapper {
-            max-width: 600px;
-            margin: 0 auto;
-            position: relative;
-        }
+.search-box:focus {
+    border-color: #667eea;
+    background: white;
+    box-shadow: 0 0 20px rgba(102, 126, 234, 0.2);
+}
 
-        .search-box {
-            width: 100%;
-            padding: 15px 50px 15px 20px;
-            border: 2px solid #e0e0e0;
-            border-radius: 25px;
-            font-size: 1.1rem;
-            outline: none;
-            transition: all 0.3s ease;
-            background: #f8f9fa;
-        }
+.search-btn {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    color: white;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
 
-        .search-box:focus {
-            border-color: #667eea;
-            background: white;
-            box-shadow: 0 0 20px rgba(102, 126, 234, 0.2);
-        }
+.search-btn:hover {
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
 
-        .search-btn {
-            position: absolute;
-            right: 5px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            cursor: pointer;
-            color: white;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .search-btn:hover {
-            transform: translateY(-50%) scale(1.1);
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-        }
-
-        .search-results-info {
-            text-align: center;
-            margin: 1rem 0;
-            color: #666;
-            font-style: italic;
-        }
+.search-results-info {
+    text-align: center;
+    margin: 1rem 0;
+    color: #666;
+    font-style: italic;
+}
 
 /* Products Section */
 .products-section {
@@ -316,6 +265,7 @@ main {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
     position: relative;
+    cursor: pointer;
 }
 
 .product-card:hover {
@@ -352,7 +302,74 @@ main {
     font-weight: bold;
 }
 
-/* Feedback Section */
+.no-products {
+    text-align: center;
+    color: #666;
+    font-style: italic;
+    grid-column: 1 / -1;
+    padding: 2rem;
+}
+
+/* Dropdown profile */
+.account-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.profile-menu {
+    position: absolute;
+    top: calc(100% + 15px);
+    left: 50%;
+    transform: translateX(-50%) translateY(-10px);
+    background: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(15px);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    min-width: 180px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000;
+}
+
+.profile-menu.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+.profile-menu ul {
+    list-style: none;
+    padding: 8px 0;
+    margin: 0;
+}
+
+.profile-menu li {
+    margin: 0;
+}
+
+.profile-menu a {
+    display: block;
+    padding: 12px 20px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.profile-menu a:hover {
+    background: rgba(255, 215, 0, 0.1);
+    color: #ffd700;
+    transform: translateX(5px);
+}
+
+.profile-menu a::after {
+    display: none;
+}
+
+/* Other sections styles */
 .feedback-section {
     padding: 4rem 5%;
     background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
@@ -398,14 +415,12 @@ main {
     line-height: 1.8;
 }
 
-/* Catalog Section */
 .catalog-section {
     background-image: url('https://static.toiimg.com/thumb/msid-121188314,width-400,resizemode-4/Naruto-is-alive.jpg');
     height: 500px;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-attachment: scroll;
     padding: 5rem 5%;
     color: white;
     text-align: center;
@@ -414,6 +429,17 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.catalog-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
 }
 
 .catalog-title {
@@ -449,7 +475,8 @@ main {
     position: relative;
     z-index: 2;
 }
-.catalog-button  a{
+
+.catalog-button a {
     text-decoration: none;
     color: #333;
     font-size: 1rem;
@@ -461,7 +488,6 @@ main {
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }
 
-/* Secure Product Section */
 .secure-product {
     padding: 4rem 5%;
     background: white;
@@ -506,7 +532,6 @@ main {
     line-height: 1.6;
 }
 
-/* HR Styling */
 hr {
     border: none;
     height: 1px;
@@ -514,7 +539,6 @@ hr {
     margin: 2rem 0;
 }
 
-/* Footer */
 .footer-content {
     background: #333;
     color: white;
@@ -547,120 +571,6 @@ hr {
     font-size: 0.9rem;
 }
 
-/* Dropdown profile */
-.account-dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.profile-menu {
-    position: absolute;
-    top: calc(100% + 15px); /* Tăng khoảng cách để phù hợp với profile image to hơn */
-    left: 50%;
-    transform: translateX(-50%) translateY(-10px);
-    background: rgba(0, 0, 0, 0.9);
-    backdrop-filter: blur(15px);
-    border-radius: 12px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    min-width: 180px;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateX(-50%) translateY(-10px);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 1000;
-}
-
-.profile-menu.show {
-    opacity: 1;
-    visibility: visible;
-    transform: translateX(-50%) translateY(0);
-} 
-
-.profile-menu::before {
-    content: '';
-    position: absolute;
-    top: -8px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0;
-    height: 0;
-    border-left: 8px solid transparent;
-    border-right: 8px solid transparent;
-    border-bottom: 8px solid rgba(0, 0, 0, 0.9);
-}
-
-.profile-menu ul {
-    list-style: none;
-    padding: 8px 0;
-    margin: 0;
-}
-
-.profile-menu li {
-    margin: 0;
-}
-
-.profile-menu a {
-    display: block;
-    padding: 12px 20px;
-    color: #fff;
-    text-decoration: none;
-    font-weight: 400;
-    font-size: 0.9rem;
-    transition: all 0.2s ease;
-    border-bottom: none;
-}
-
-.profile-menu a:hover {
-    background: rgba(255, 215, 0, 0.1);
-    color: #ffd700;
-    transform: translateX(5px);
-}
-
-.profile-menu a::after {
-    display: none;
-}
-
-.profile-menu .sign-in {
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    margin-top: 4px;
-    font-weight: 500;
-}
-
-.profile-menu .sign-in:hover {
-    background: rgba(255, 215, 0, 0.2);
-}
-
-.profile-menu .user-greeting {
-    margin: 0;
-    padding: 0;
-}
-
-.profile-menu .user-greeting span {
-    color: #ffd700;
-    font-weight: 600;
-    font-size: 0.95rem;
-    padding: 12px 20px ;
-    display: block;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(255, 215, 0, 0.1);
-    margin-bottom: 4px;
-}
-
-/* Logout button styling */
-.profile-menu .logout-btn {
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    margin-top: 4px;
-    font-weight: 500;
-    color: #ff6b6b;
-}
-
-.profile-menu .logout-btn:hover {
-    background: rgba(255, 107, 107, 0.2);
-    color: #ff4757;
-}
-
-/* Responsive Design */
 @media (max-width: 768px) {
     .nav-container {
         flex-direction: column;
@@ -669,16 +579,6 @@ hr {
     
     .nav-links {
         gap: 1rem;
-    }
-    
-    .nav-icons {
-        gap: 2rem; /* Giữ khoảng cách trên mobile */
-    }
-    
-    .profile-img {
-        width: 50px;
-        height: 50px;
-        border-width: 2px;
     }
     
     .site-header {
@@ -693,69 +593,10 @@ hr {
         font-size: 1.3rem;
     }
     
-    .catalog-section {
-        height: 400px;
-    }
-    
-    .feedback-title,
-    .catalog-title {
-        font-size: 1.8rem;
-    }
-    
     .products-grid,
     .feedback-grid,
     .secure-gird {
         grid-template-columns: 1fr;
         gap: 2rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .site-header,
-    .products-section,
-    .feedback-section,
-    .secure-product {
-        padding-left: 3%;
-        padding-right: 3%;
-    }
-    
-    .nav-icons {
-        gap: 1.5rem; /* Giảm khoảng cách trên mobile nhỏ */
-    }
-    
-    .profile-img {
-        width: 45px;
-        height: 45px;
-    }
-    
-    .site-header {
-        height: 500px;
-    }
-    
-    .catalog-section {
-        height: 350px;
-        padding: 3rem 3%;
-    }
-    
-    .title-header h1 {
-        font-size: 1.8rem;
-    }
-    
-    .title-header p {
-        font-size: 1.1rem;
-    }
-    
-    .catalog-title {
-        font-size: 1.5rem;
-    }
-    
-    .catalog-section p {
-        font-size: 1rem;
-    }
-    
-    .btn-header,
-    .catalog-button {
-        padding: 12px 25px;
-        font-size: 1rem;
     }
 }

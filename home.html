@@ -207,7 +207,6 @@
         function attachProductCardEvents() {
             document.querySelectorAll('.product-card').forEach(card => {
                 card.style.cursor = 'pointer';
-
                 card.addEventListener('click', function () {
                     const productId = this.getAttribute('data-product-id');
                     localStorage.setItem('selectedProduct', productId);
@@ -220,6 +219,52 @@
         function performSearch() {
             const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
             filterProducts(searchTerm);
+        }
+
+        function smartSearch(searchTerm) {
+            const allProducts = getProductsFromStorage();
+            
+            if (searchTerm === '') {
+                return allProducts;
+            }
+
+            // Split search term into individual words for better matching
+            const searchWords = searchTerm.toLowerCase().split(' ').filter(word => word.length > 0);
+            
+            const scoredProducts = allProducts.map(product => {
+                let score = 0;
+                const productName = product.name.toLowerCase();
+                
+                // Exact name match gets highest score
+                if (productName === searchTerm) {
+                    score += 100;
+                }
+                
+                // Name contains full search term
+                else if (productName.includes(searchTerm)) {
+                    score += 50;
+                }
+                
+                // Name contains individual search words
+                searchWords.forEach(word => {
+                    if (productName.includes(word)) {
+                        score += 20;
+                    }
+                });
+                
+                // Bonus for matches at the beginning of the name
+                if (productName.startsWith(searchTerm)) {
+                    score += 30;
+                }
+                
+                return { product, score };
+            });
+
+            // Filter out products with score 0 and sort by score
+            return scoredProducts
+                .filter(item => item.score > 0)
+                .sort((a, b) => b.score - a.score)
+                .map(item => item.product);
         }
 
         function filterProducts(searchTerm) {
@@ -312,6 +357,7 @@
         window.toggleDropdown = toggleDropdown;
         window.goToCartPage = goToCartPage;
         window.performSearch = performSearch;
+        window.smartSearch = smartSearch;
     </script>
 </body>
 
