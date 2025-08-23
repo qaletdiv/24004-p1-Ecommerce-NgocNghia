@@ -201,6 +201,12 @@ body {
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     margin-top: 4px;
     font-weight: 500;
+    color: #ff6b6b;
+}
+
+.profile-menu .sign-in:hover {
+    background: rgba(255, 107, 107, 0.2);
+    color: #ff4757;
 }
 
 .profile-menu .logout-btn {
@@ -701,4 +707,3 @@ body {
         text-align: center;
     }
 }
-

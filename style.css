@@ -318,7 +318,7 @@ body {
 
 .profile-menu {
     position: absolute;
-    top: calc(100% + 15px);
+    top: calc(100% + 15px); /* Tăng khoảng cách để phù hợp với profile image to hơn */
     left: 50%;
     transform: translateX(-50%) translateY(-10px);
     background: rgba(0, 0, 0, 0.9);
@@ -329,6 +329,7 @@ body {
     min-width: 180px;
     opacity: 0;
     visibility: hidden;
+    transform: translateX(-50%) translateY(-10px);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 1000;
 }
@@ -337,6 +338,19 @@ body {
     opacity: 1;
     visibility: visible;
     transform: translateX(-50%) translateY(0);
+} 
+
+.profile-menu::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid rgba(0, 0, 0, 0.9);
 }
 
 .profile-menu ul {
@@ -357,6 +371,7 @@ body {
     font-weight: 400;
     font-size: 0.9rem;
     transition: all 0.2s ease;
+    border-bottom: none;
 }
 
 .profile-menu a:hover {
@@ -367,6 +382,47 @@ body {
 
 .profile-menu a::after {
     display: none;
+}
+
+.profile-menu .sign-in {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 4px;
+    font-weight: 500;
+    color: #ff6b6b;
+}
+
+.profile-menu .sign-in:hover {
+    background: rgba(255, 107, 107, 0.2);
+    color: #ff4757;
+}
+
+.profile-menu .user-greeting {
+    margin: 0;
+    padding: 0;
+}
+
+.profile-menu .user-greeting span {
+    color: #ffd700;
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 12px 20px ;
+    display: block;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 215, 0, 0.1);
+    margin-bottom: 4px;
+}
+
+/* Logout button styling */
+.profile-menu .logout-btn {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 4px;
+    font-weight: 500;
+    color: #ff6b6b;
+}
+
+.profile-menu .logout-btn:hover {
+    background: rgba(255, 107, 107, 0.2);
+    color: #ff4757;
 }
 
 /* Other sections styles */
@@ -600,3 +656,64 @@ hr {
         gap: 2rem;
     }
 }
+
+
+@media (max-width: 480px) {
+    .site-header,
+    .products-section,
+    .feedback-section,
+    .secure-product {
+        padding-left: 3%;
+        padding-right: 3%;
+    }
+    
+    .nav-icons {
+        gap: 1.5rem; /* Giảm khoảng cách trên mobile nhỏ */
+    }
+    
+    .profile-img {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .site-header {
+        height: 500px;
+    }
+    
+    .catalog-section {
+        height: 350px;
+        padding: 3rem 3%;
+    }
+    
+    .title-header h1 {
+        font-size: 1.8rem;
+    }
+    
+    .title-header p {
+        font-size: 1.1rem;
+    }
+    
+    .catalog-title {
+        font-size: 1.5rem;
+    }
+    
+    .catalog-section p {
+        font-size: 1rem;
+    }
+    
+    .btn-header,
+    .catalog-button {
+        padding: 12px 25px;
+        font-size: 1rem;
+    }
+}
+
+.catalog-section {
+    height: 400px;
+}
+
+.feedback-title,
+.catalog-title {
+    font-size: 1.8rem;
+}
+
