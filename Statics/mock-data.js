@@ -70,6 +70,38 @@ export const products = [
         description: "Rare Goku Black figure from Dragon Ball Super. Features dark aura effects and menacing pose, perfect for serious collectors.",
         image: "https://daweebstop.com/cdn/shop/products/IMG_3927.jpg?v=1635865116&width=1445",
         category: "DragonBall Figure"
+    },
+    {
+        id: 120,
+        name: "Lv Bu FengXian Figure",
+        price: "12.000.000đ",
+        description: "Lu Bu Fengxian from Record of Ragnarok, captured in a fierce battle stance with intricate armor details and dynamic sculpting. A premium collector’s centerpiece showcasing the unmatched warlord of the series.",
+        image: "https://nekotwo.com/cdn/shop/files/5_2f07e248-50e2-4471-85e8-e62f07ce1fec_2048x.jpg?v=1733727197",
+        category: "Record Of Ragnarok Figure"
+    },
+    {
+        id: 121,
+        name: "Jack the Ripper Resin Statue Figure",
+        price: "2.000.000đ",
+        description: "Jack the Ripper from Record of Ragnarok, sculpted with sinister precision, detailed Victorian-era attire, and a chilling presence. A must-have for fans seeking a dark and captivating display piece.",
+        image: "https://i.ebayimg.com/images/g/6TUAAOSwWvdnTqUp/s-l1200.jpg",
+        category: "Record Of Ragnarok Figure"
+    },
+    {
+        id: 122,
+        name: "Todoroki Figure",
+        price: "15.000.000đ",
+        description: "Shoto Todoroki from My Hero Academia, featuring his iconic dual ice-and-fire powers in a striking pose. Crafted with vivid colors and fine detail, perfect for any anime figure enthusiast.",
+        image: "https://animota.net/cdn/shop/files/00066820179_02.jpg?v=1705302250https://first4figures.com/cdn/shop/files/launchphoto_deku_resinstn-06.jpg?v=1725877020&width=640",
+        category: "Other Figure"
+    },
+    {
+        id: 123,
+        name: "Izuku Midoriya Figure",
+        price: "20.000.000đ",
+        description: "Izuku Midoriya (Deku) from My Hero Academia, dynamically posed as he unleashes One For All. Meticulously detailed, this figure embodies his determination and heroic spirit.",
+        image: "https://first4figures.com/cdn/shop/files/launchphoto_deku_resinstn-06.jpg?v=1725877020&width=640",
+        category: "Other Figure"
     }
 ];
 
