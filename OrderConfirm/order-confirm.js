@@ -483,17 +483,17 @@ function addPrintStyles() {
             }
             
             .card-header {
-                background: #f8f9fa !important;
-                color: #333 !important;
+                background: #f8f9fa;
+                color: #333;
             }
             
             body {
-                background: white !important;
+                background: white;
             }
             
             .success-section h1 {
-                color: #333 !important;
-                text-shadow: none !important;
+                color: #333;
+                text-shadow: none;
             }
             
             .success-message {
