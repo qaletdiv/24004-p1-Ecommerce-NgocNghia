@@ -323,7 +323,7 @@ function loadRelatedProducts() {
     
     // Get products from same category or random products, excluding current product
     const relatedProducts = products
-        .filter(p => p.id !== currentProduct.id)
+        .filter(p => p.category === currentProduct.category && p.id !== currentProduct.id)
         .slice(0, 4); // Show max 4 related products
 
     relatedGrid.innerHTML = relatedProducts.map(product => `
