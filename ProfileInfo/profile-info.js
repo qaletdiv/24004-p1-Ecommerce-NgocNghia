@@ -1,4 +1,3 @@
-
 // Tab switching functionality
 document.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', function(e) {
@@ -121,7 +120,6 @@ window.addEventListener('click', function(event) {
         modal.style.display = 'none';
     }
 });
-
 
 // Address actions
 document.addEventListener('click', function(e) {
@@ -255,6 +253,443 @@ function handleLogout() {
     updateProfileDropdown();
     console.log('User logged out');
     window.location.href = '../home.html';
+}
+
+// Helper functions for order history
+function getFromStorage(key, defaultValue = null) {
+    try {
+        const item = localStorage.getItem(key);
+        return item ? JSON.parse(item) : defaultValue;
+    } catch (error) {
+        console.error(`Error reading ${key} from localStorage:`, error);
+        return defaultValue;
+    }
+}
+
+function formatCurrency(amount) {
+    return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '₫';
+}
+
+function getOrderStatusBadge(status) {
+    const statusColors = {
+        'pending': { color: '#f39c12', text: 'Pending', icon: 'clock' },
+        'confirmed': { color: '#3498db', text: 'Confirmed', icon: 'check-circle' },
+        'processing': { color: '#9b59b6', text: 'Processing', icon: 'cog' },
+        'shipped': { color: '#e67e22', text: 'Shipped', icon: 'truck' },
+        'delivered': { color: '#27ae60', text: 'Delivered', icon: 'check-double' },
+        'cancelled': { color: '#e74c3c', text: 'Cancelled', icon: 'times-circle' },
+        'refunded': { color: '#95a5a6', text: 'Refunded', icon: 'undo' }
+    };
+    
+    const statusInfo = statusColors[status] || statusColors['pending'];
+    
+    return `
+        <span class="order-status-badge" style="
+            background: ${statusInfo.color}; 
+            color: white; 
+            padding: 4px 12px; 
+            border-radius: 15px; 
+            font-size: 0.8rem; 
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        ">
+            <i class="fa-solid fa-${statusInfo.icon}"></i>
+            ${statusInfo.text}
+        </span>
+    `;
+}
+
+function getUserOrders() {
+    const currentUser = getFromStorage('currentUser');
+    if (!currentUser) return [];
+    
+    const allOrders = getFromStorage('orders', []);
+    // Filter orders for current user
+    return allOrders.filter(order => 
+        order.customerEmail === currentUser.email || 
+        order.shipping.email === currentUser.email ||
+        (order.userId && order.userId === currentUser.email)
+    ).sort((a, b) => new Date(b.orderDate) - new Date(a.orderDate));
+}
+
+function generateOrdersHTML() {
+    const userOrders = getUserOrders();
+    
+    if (userOrders.length === 0) {
+        return `
+            <div class="empty-state">
+                <i class="fa-solid fa-box" style="font-size: 4rem; color: #ddd; margin-bottom: 1rem;"></i>
+                <h3 style="color: #666; margin-bottom: 0.5rem;">No orders yet</h3>
+                <p style="color: #999; margin-bottom: 2rem;">Your order history will appear here once you make a purchase</p>
+                <a href="../ShopPage/shop-page.html" class="primary-btn" style="
+                    background: linear-gradient(45deg, #667eea, #764ba2);
+                    color: white;
+                    padding: 12px 24px;
+                    border-radius: 8px;
+                    text-decoration: none;
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 8px;
+                    font-weight: 600;
+                    transition: transform 0.3s ease;
+                " onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <i class="fa-solid fa-shopping-bag"></i>
+                    Start Shopping
+                </a>
+            </div>
+        `;
+    }
+
+    return `
+        <div class="orders-grid" style="display: flex; flex-direction: column; gap: 1.5rem;">
+            ${userOrders.map(order => {
+                const orderDate = new Date(order.orderDate).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+
+                const deliveryDate = new Date(order.estimatedDelivery).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                });
+
+                const totalItems = order.items.reduce((sum, item) => sum + item.quantity, 0);
+                
+                return `
+                    <div class="order-card" style="
+                        background: white;
+                        border-radius: 12px;
+                        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+                        overflow: hidden;
+                        transition: transform 0.3s ease, box-shadow 0.3s ease;
+                    " onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 8px 25px rgba(0,0,0,0.15)'" 
+                       onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.1)'">
+                        
+                        <div class="order-header" style="
+                            background: linear-gradient(45deg, #667eea, #764ba2);
+                            color: white;
+                            padding: 1.5rem 2rem;
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            flex-wrap: wrap;
+                            gap: 1rem;
+                        ">
+                            <div class="order-basic-info">
+                                <div style="font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem;">
+                                    Order #${order.orderNumber}
+                                </div>
+                                <div style="font-size: 0.9rem; opacity: 0.9;">
+                                    Placed on ${orderDate}
+                                </div>
+                            </div>
+                            <div class="order-status-info" style="text-align: right;">
+                                ${getOrderStatusBadge(order.status || 'confirmed')}
+                            </div>
+                        </div>
+
+                        <div class="order-body" style="padding: 2rem;">
+                            <div class="order-summary" style="
+                                display: grid;
+                                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                                gap: 1.5rem;
+                                margin-bottom: 2rem;
+                            ">
+                                <div class="summary-item">
+                                    <div style="color: #666; font-size: 0.9rem; margin-bottom: 0.5rem;">
+                                        <i class="fa-solid fa-box" style="color: #667eea; margin-right: 8px;"></i>
+                                        Total Items
+                                    </div>
+                                    <div style="font-size: 1.2rem; font-weight: 600; color: #2c3e50;">
+                                        ${totalItems} items
+                                    </div>
+                                </div>
+                                
+                                <div class="summary-item">
+                                    <div style="color: #666; font-size: 0.9rem; margin-bottom: 0.5rem;">
+                                        <i class="fa-solid fa-dollar-sign" style="color: #667eea; margin-right: 8px;"></i>
+                                        Total Amount
+                                    </div>
+                                    <div style="font-size: 1.2rem; font-weight: 600; color: #27ae60;">
+                                        ${formatCurrency(order.totals.total)}
+                                    </div>
+                                </div>
+
+                                <div class="summary-item">
+                                    <div style="color: #666; font-size: 0.9rem; margin-bottom: 0.5rem;">
+                                        <i class="fa-solid fa-truck" style="color: #667eea; margin-right: 8px;"></i>
+                                        Expected Delivery
+                                    </div>
+                                    <div style="font-size: 1rem; font-weight: 600; color: #2c3e50;">
+                                        ${deliveryDate}
+                                    </div>
+                                </div>
+
+                                <div class="summary-item">
+                                    <div style="color: #666; font-size: 0.9rem; margin-bottom: 0.5rem;">
+                                        <i class="fa-solid fa-credit-card" style="color: #667eea; margin-right: 8px;"></i>
+                                        Payment Method
+                                    </div>
+                                    <div style="font-size: 1rem; font-weight: 600; color: #2c3e50;">
+                                        ${order.payment.method === 'credit-card' ? 'Credit Card' : 
+                                          order.payment.method === 'cod' ? 'Cash on Delivery' : 
+                                          order.payment.method === 'paypal' ? 'PayPal' : 'Bank Transfer'}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="order-items-preview" style="margin-bottom: 1.5rem;">
+                                <h4 style="color: #2c3e50; margin-bottom: 1rem; font-size: 1.1rem;">
+                                    <i class="fa-solid fa-list" style="color: #667eea; margin-right: 8px;"></i>
+                                    Order Items
+                                </h4>
+                                <div class="items-preview" style="
+                                    display: flex;
+                                    gap: 1rem;
+                                    overflow-x: auto;
+                                    padding-bottom: 0.5rem;
+                                ">
+                                    ${order.items.slice(0, 4).map(item => {
+                                        // Get product details from localStorage products
+                                        const products = getFromStorage('products', []);
+                                        const product = products.find(p => p.id === item.productId);
+                                        
+                                        if (!product) return '';
+                                        
+                                        return `
+                                            <div class="item-preview" style="
+                                                min-width: 120px;
+                                                text-align: center;
+                                                background: rgba(102, 126, 234, 0.05);
+                                                border-radius: 8px;
+                                                padding: 1rem;
+                                                position: relative;
+                                            ">
+                                                <img src="${product.image}" alt="${product.name}" style="
+                                                    width: 60px;
+                                                    height: 60px;
+                                                    object-fit: cover;
+                                                    border-radius: 6px;
+                                                    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                                                    margin-bottom: 0.5rem;
+                                                ">
+                                                <div style="
+                                                    font-size: 0.8rem;
+                                                    color: #2c3e50;
+                                                    font-weight: 600;
+                                                    margin-bottom: 0.25rem;
+                                                    line-height: 1.2;
+                                                    display: -webkit-box;
+                                                    -webkit-line-clamp: 2;
+                                                    -webkit-box-orient: vertical;
+                                                    overflow: hidden;
+                                                ">${product.name}</div>
+                                                <div style="
+                                                    font-size: 0.75rem;
+                                                    color: #666;
+                                                ">Qty: ${item.quantity}</div>
+                                                ${item.quantity > 1 ? `
+                                                    <div style="
+                                                        position: absolute;
+                                                        top: -5px;
+                                                        right: -5px;
+                                                        background: #e74c3c;
+                                                        color: white;
+                                                        width: 20px;
+                                                        height: 20px;
+                                                        border-radius: 50%;
+                                                        display: flex;
+                                                        align-items: center;
+                                                        justify-content: center;
+                                                        font-size: 0.7rem;
+                                                        font-weight: bold;
+                                                    ">${item.quantity}</div>
+                                                ` : ''}
+                                            </div>
+                                        `;
+                                    }).join('')}
+                                    ${order.items.length > 4 ? `
+                                        <div class="more-items" style="
+                                            min-width: 120px;
+                                            display: flex;
+                                            align-items: center;
+                                            justify-content: center;
+                                            background: rgba(102, 126, 234, 0.1);
+                                            border-radius: 8px;
+                                            color: #667eea;
+                                            font-weight: 600;
+                                            font-size: 0.9rem;
+                                        ">
+                                            +${order.items.length - 4} more
+                                        </div>
+                                    ` : ''}
+                                </div>
+                            </div>
+
+                            <div class="order-actions" style="
+                                display: flex;
+                                gap: 1rem;
+                                flex-wrap: wrap;
+                                justify-content: space-between;
+                                align-items: center;
+                                padding-top: 1.5rem;
+                                border-top: 1px solid #f0f0f0;
+                            ">
+                                <div class="action-buttons" style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                                    <button onclick="viewOrderDetails('${order.orderNumber}')" class="btn-view-details" style="
+                                        background: linear-gradient(45deg, #667eea, #764ba2);
+                                        color: white;
+                                        border: none;
+                                        padding: 8px 16px;
+                                        border-radius: 6px;
+                                        font-size: 0.9rem;
+                                        font-weight: 600;
+                                        cursor: pointer;
+                                        transition: all 0.3s ease;
+                                        display: flex;
+                                        align-items: center;
+                                        gap: 6px;
+                                    " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 15px rgba(102, 126, 234, 0.4)'" 
+                                       onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                                        <i class="fa-solid fa-eye"></i>
+                                        View Details
+                                    </button>
+                                    
+                                    ${(order.status === 'pending' || order.status === 'confirmed') ? `
+                                        <button onclick="cancelOrder('${order.orderNumber}')" class="btn-cancel" style="
+                                            background: white;
+                                            color: #e74c3c;
+                                            border: 1px solid #e74c3c;
+                                            padding: 8px 16px;
+                                            border-radius: 6px;
+                                            font-size: 0.9rem;
+                                            font-weight: 600;
+                                            cursor: pointer;
+                                            transition: all 0.3s ease;
+                                            display: flex;
+                                            align-items: center;
+                                            gap: 6px;
+                                        " onmouseover="this.style.background='#e74c3c'; this.style.color='white'" 
+                                           onmouseout="this.style.background='white'; this.style.color='#e74c3c'">
+                                            <i class="fa-solid fa-times"></i>
+                                            Cancel Order
+                                        </button>
+                                    ` : ''}
+                                    
+                                    ${order.status === 'delivered' ? `
+                                        <button onclick="reorderItems('${order.orderNumber}')" class="btn-reorder" style="
+                                            background: white;
+                                            color: #27ae60;
+                                            border: 1px solid #27ae60;
+                                            padding: 8px 16px;
+                                            border-radius: 6px;
+                                            font-size: 0.9rem;
+                                            font-weight: 600;
+                                            cursor: pointer;
+                                            transition: all 0.3s ease;
+                                            display: flex;
+                                            align-items: center;
+                                            gap: 6px;
+                                        " onmouseover="this.style.background='#27ae60'; this.style.color='white'" 
+                                           onmouseout="this.style.background='white'; this.style.color='#27ae60'">
+                                            <i class="fa-solid fa-repeat"></i>
+                                            Reorder
+                                        </button>
+                                    ` : ''}
+                                </div>
+                                
+                                <div class="shipping-address" style="
+                                    font-size: 0.85rem;
+                                    color: #666;
+                                    text-align: right;
+                                    max-width: 300px;
+                                ">
+                                    <div style="font-weight: 600; color: #2c3e50; margin-bottom: 2px;">
+                                        <i class="fa-solid fa-map-marker-alt" style="color: #667eea; margin-right: 5px;"></i>
+                                        Shipping to:
+                                    </div>
+                                    <div style="line-height: 1.4;">
+                                        ${order.shipping.firstName} ${order.shipping.lastName}<br>
+                                        ${order.shipping.address}, ${order.shipping.city}<br>
+                                        ${order.shipping.state} ${order.shipping.zipCode}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('')}
+        </div>
+    `;
+}
+
+// Order action functions
+function viewOrderDetails(orderNumber) {
+    // Open order details in a modal or redirect to order details page
+    window.open(`../OrderConfirm/order-confirm.html?orderNumber=${orderNumber}`, '_blank');
+}
+
+function cancelOrder(orderNumber) {
+    if (confirm('Are you sure you want to cancel this order?')) {
+        // Update order status to cancelled
+        const orders = getFromStorage('orders', []);
+        const orderIndex = orders.findIndex(order => order.orderNumber === orderNumber);
+        
+        if (orderIndex !== -1) {
+            orders[orderIndex].status = 'cancelled';
+            localStorage.setItem('orders', JSON.stringify(orders));
+            
+            // Refresh the orders display
+            const ordersTab = document.getElementById('orders');
+            if (ordersTab) {
+                const contentHeader = ordersTab.querySelector('.content-header');
+                const ordersContent = generateOrdersHTML();
+                ordersTab.innerHTML = contentHeader.outerHTML + ordersContent;
+            }
+            
+            alert('Order has been cancelled successfully.');
+        }
+    }
+}
+
+function reorderItems(orderNumber) {
+    const orders = getFromStorage('orders', []);
+    const order = orders.find(o => o.orderNumber === orderNumber);
+    
+    if (order) {
+        // Add order items to cart
+        const currentUser = getFromStorage('currentUser');
+        const cartKey = currentUser ? `cart_of_${currentUser.name}` : 'cart_guest';
+        let cart = getFromStorage(cartKey, []);
+        
+        order.items.forEach(item => {
+            const existingItem = cart.find(cartItem => cartItem.productId === item.productId);
+            if (existingItem) {
+                existingItem.quantity += item.quantity;
+            } else {
+                cart.push({
+                    productId: item.productId,
+                    quantity: item.quantity,
+                    addedDate: new Date().toISOString()
+                });
+            }
+        });
+        
+        localStorage.setItem(cartKey, JSON.stringify(cart));
+        
+        // Update cart badge
+        if (window.updateCartBadge) {
+            window.updateCartBadge();
+        }
+        
+        alert('Items have been added to your cart!');
+    }
 }
 
 // Load user profile information into the page
@@ -464,11 +899,7 @@ function updateProfileInformation() {
                 <div class="content-header">
                     <h2 class="content-title">My Orders</h2>
                 </div>
-                <div class="empty-state">
-                    <i class="fa-solid fa-box"></i>
-                    <h3>No orders yet</h3>
-                    <p>Your order history will appear here</p>
-                </div>
+                ${generateOrdersHTML()}
             </div>
 
             <!-- Returns Tab -->
@@ -634,18 +1065,6 @@ function initializeTabSwitching() {
     });
 }
 
-
-// Helper functions for localStorage management
-function getFromStorage(key, defaultValue = null) {
-    try {
-        const item = localStorage.getItem(key);
-        return item ? JSON.parse(item) : defaultValue;
-    } catch (error) {
-        console.error(`Error reading ${key} from localStorage:`, error);
-        return defaultValue;
-    }
-}
-
 // Get cart data from localStorage
 function getCartFromStorage() {
     const currentUser = getFromStorage('currentUser');
@@ -739,6 +1158,9 @@ window.goToProfile = goToProfile;
 window.handleLogout = handleLogout;
 window.openAddressModal = openAddressModal;
 window.closeAddressModal = closeAddressModal;
+window.viewOrderDetails = viewOrderDetails;
+window.cancelOrder = cancelOrder;
+window.reorderItems = reorderItems;
 
 document.addEventListener('DOMContentLoaded', () => {
     updateProfileImage();
@@ -803,7 +1225,6 @@ const addressModalHTML = `
 function goToCartPage() {
     window.location.href = '../CartPage/cart-page.html';
 }
-
 
 // Add modal to the body when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {

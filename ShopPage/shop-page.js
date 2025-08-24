@@ -74,7 +74,6 @@ function getProductsFromStorage() {
 }
 
 // Filter products based on current filters
-// Filter products based on current filters
 function filterProducts() {
     const allProducts = getProductsFromStorage();
     const filterCategory = currentFilters.category.toLowerCase();
