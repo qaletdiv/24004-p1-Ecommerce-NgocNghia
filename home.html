@@ -60,37 +60,18 @@
     </section>
 
     <main>
-        <section class="products-section">
-            <div class="products-grid">
-                <div class="product-card" data-product-id="117">
-                    <img src="https://www.bbcw.com/var/images/product/500.500/AA137597.jpg" alt=""
-                        class="product-image">
-                    <div class="product-info">
-                        <h3 class="product-name">Pain Figure</h3>
-                        <p class="product-price">2.000.000đ</p>
-                    </div>
-                </div>
-
-                <div class="product-card" data-product-id="118">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTebIl5QoOVAJvQZ6DY2UfvbVPQmiqA1EBnhA&s"
-                        alt="" class="product-image">
-                    <div class="product-info">
-                        <h3 class="product-name">Naruto Modern Figure</h3>
-                        <p class="product-price">5.000.000đ</p>
-                    </div>
-                </div>
-
-                <div class="product-card" data-product-id="119">
-                    <img src="https://daweebstop.com/cdn/shop/products/IMG_3927.jpg?v=1635865116&width=1445" alt=""
-                        class="product-image">
-                    <div class="product-info">
-                        <h3 class="product-name">Black Goku Figure</h3>
-                        <p class="product-price">8.000.000đ</p>
-                    </div>
-                </div>
+        <!-- Featured Premium Products Section -->
+        <section class="featured-section">
+            <div class="products-grid" id="premium-products-grid">
+                <!-- Premium products will be loaded here -->
+            </div>
+            <div class="view-all-container">
+                <button class="view-all-btn"><a href="../ShopPage/shop-page.html">VIEW ALL PRODUCTS</a></button>
             </div>
         </section>
+
         <hr>
+        
         <section class="feedback-section">
             <h2 class="feedback-title">WHAT OUR CUSTOMERS SAY</h2>
             <div class="feedback-grid">
@@ -173,31 +154,53 @@
             }
         }
 
+        // Filter premium products (high-priced items)
+        function getPremiumProducts() {
+            const allProducts = getProductsFromStorage();
+            
+            // Define premium criteria - products with price > 5,000,000₫ or specific high-end models
+            const premiumProducts = allProducts.filter(product => {
+                const priceString = product.price.replace(/[^\d]/g, ''); // Remove non-numeric characters
+                const price = parseInt(priceString);
+                return price >= 5000000; // 5 million VND or more
+            });
+
+            // Sort by price (highest first) and take top 6
+            return premiumProducts
+                .sort((a, b) => {
+                    const priceA = parseInt(a.price.replace(/[^\d]/g, ''));
+                    const priceB = parseInt(b.price.replace(/[^\d]/g, ''));
+                    return priceB - priceA;
+                })
+                .slice(0, 6);
+        }
+
         // Create product card HTML
         function createProductCard(product) {
             return `
-        <div class="product-card" data-product-id="${product.id}" data-name="${product.name.toLowerCase()}">
-            <img src="${product.image}" alt="${product.name}" class="product-image">
-            <div class="product-info">
-                <h3 class="product-name">${product.name}</h3>
-                <p class="product-price">${product.price}</p>
-            </div>
-        </div>
-    `;
+                <div class="product-card premium-card" data-product-id="${product.id}" data-name="${product.name.toLowerCase()}">
+                    <div class="premium-badge">HOT</div>
+                    <img src="${product.image}" alt="${product.name}" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-name">${product.name}</h3>
+                        <p class="product-price">${product.price}</p>
+                        <p class="product-category">${product.category}</p>
+                    </div>
+                </div>
+            `;
         }
 
-        // Render products to the grid
-        function renderProducts(productsToShow = null) {
-            const productsGrid = document.querySelector('.products-grid');
-            const allProducts = getProductsFromStorage();
-            const products = productsToShow || allProducts;
+        // Render premium products to the grid
+        function renderPremiumProducts() {
+            const premiumGrid = document.getElementById('premium-products-grid');
+            const premiumProducts = getPremiumProducts();
 
-            if (products.length === 0) {
-                productsGrid.innerHTML = '<p class="no-products">No products found.</p>';
+            if (premiumProducts.length === 0) {
+                premiumGrid.innerHTML = '<p class="no-products">No premium products found.</p>';
                 return;
             }
 
-            productsGrid.innerHTML = products.map(product => createProductCard(product)).join('');
+            premiumGrid.innerHTML = premiumProducts.map(product => createProductCard(product)).join('');
 
             // Re-attach click events to product cards
             attachProductCardEvents();
@@ -215,70 +218,19 @@
             });
         }
 
-        // Search functionality
+        // Search functionality - now searches through all products
         function performSearch() {
             const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
-            filterProducts(searchTerm);
-        }
-
-        function smartSearch(searchTerm) {
-            const allProducts = getProductsFromStorage();
             
             if (searchTerm === '') {
-                return allProducts;
-            }
-
-            // Split search term into individual words for better matching
-            const searchWords = searchTerm.toLowerCase().split(' ').filter(word => word.length > 0);
-            
-            const scoredProducts = allProducts.map(product => {
-                let score = 0;
-                const productName = product.name.toLowerCase();
-                
-                // Exact name match gets highest score
-                if (productName === searchTerm) {
-                    score += 100;
-                }
-                
-                // Name contains full search term
-                else if (productName.includes(searchTerm)) {
-                    score += 50;
-                }
-                
-                // Name contains individual search words
-                searchWords.forEach(word => {
-                    if (productName.includes(word)) {
-                        score += 20;
-                    }
-                });
-                
-                // Bonus for matches at the beginning of the name
-                if (productName.startsWith(searchTerm)) {
-                    score += 30;
-                }
-                
-                return { product, score };
-            });
-
-            // Filter out products with score 0 and sort by score
-            return scoredProducts
-                .filter(item => item.score > 0)
-                .sort((a, b) => b.score - a.score)
-                .map(item => item.product);
-        }
-
-        function filterProducts(searchTerm) {
-            const allProducts = getProductsFromStorage();
-            const searchInfo = document.getElementById('searchInfo');
-
-            if (searchTerm === '') {
-                // Show all products when search is empty
-                renderProducts();
-                searchInfo.textContent = '';
+                // If search is empty, show premium products
+                renderPremiumProducts();
+                document.getElementById('searchInfo').textContent = '';
                 return;
             }
 
-            // Filter products based on search term
+            // Search through all products
+            const allProducts = getProductsFromStorage();
             const filteredProducts = allProducts.filter(product =>
                 product.name.toLowerCase().includes(searchTerm) ||
                 product.description.toLowerCase().includes(searchTerm) ||
@@ -286,29 +238,55 @@
             );
 
             // Render filtered products
-            renderProducts(filteredProducts);
+            renderSearchResults(filteredProducts, searchTerm);
+        }
 
-            // Update search info
-            if (filteredProducts.length === 0) {
+        function renderSearchResults(products, searchTerm) {
+            const premiumGrid = document.getElementById('premium-products-grid');
+            const searchInfo = document.getElementById('searchInfo');
+
+            if (products.length === 0) {
+                premiumGrid.innerHTML = '<p class="no-products">No results found.</p>';
                 searchInfo.textContent = `No results found for "${searchTerm}"`;
                 searchInfo.style.color = '#ff6b6b';
-            } else {
-                searchInfo.textContent = `Found ${filteredProducts.length} product${filteredProducts.length !== 1 ? 's' : ''} for "${searchTerm}"`;
-                searchInfo.style.color = '#28a745';
+                return;
             }
+
+            // Create cards without premium badge for search results
+            premiumGrid.innerHTML = products.map(product => `
+                <div class="product-card" data-product-id="${product.id}" data-name="${product.name.toLowerCase()}">
+                    <img src="${product.image}" alt="${product.name}" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-name">${product.name}</h3>
+                        <p class="product-price">${product.price}</p>
+                        <p class="product-category">${product.category}</p>
+                    </div>
+                </div>
+            `).join('');
+
+            searchInfo.textContent = `Found ${products.length} product${products.length !== 1 ? 's' : ''} for "${searchTerm}"`;
+            searchInfo.style.color = '#28a745';
+
+            // Re-attach click events
+            attachProductCardEvents();
         }
 
         // Real-time search as user types
         document.addEventListener('DOMContentLoaded', function () {
-            // Initial render of all products
-            renderProducts();
+            // Initial render of premium products
+            renderPremiumProducts();
 
             const searchInput = document.getElementById('searchInput');
 
             // Real-time search
             searchInput.addEventListener('input', function () {
                 const searchTerm = this.value.toLowerCase().trim();
-                filterProducts(searchTerm);
+                if (searchTerm === '') {
+                    renderPremiumProducts();
+                    document.getElementById('searchInfo').textContent = '';
+                } else {
+                    performSearch();
+                }
             });
 
             // Search on Enter key press
@@ -321,7 +299,8 @@
             // Clear search when input is focused and empty
             searchInput.addEventListener('focus', function () {
                 if (this.value === '') {
-                    filterProducts('');
+                    renderPremiumProducts();
+                    document.getElementById('searchInfo').textContent = '';
                 }
             });
 
@@ -357,7 +336,7 @@
         window.toggleDropdown = toggleDropdown;
         window.goToCartPage = goToCartPage;
         window.performSearch = performSearch;
-        window.smartSearch = smartSearch;
+        window.renderPremiumProducts = renderPremiumProducts;
     </script>
 </body>
 

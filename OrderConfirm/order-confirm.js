@@ -65,9 +65,9 @@ function goToLogin() {
 }
 
 function viewOrders() {
-    // Redirect to orders page (to be created)
-    showNotification('Redirecting to your orders...', 'info');
-    // window.location.href = '../OrdersPage/orders-page.html';
+    setTimeout(() => {
+        window.location.href = '../ProfileInfo/profile-info.html?tab=orders';
+    }, 1000);
 }
 
 function printOrder() {

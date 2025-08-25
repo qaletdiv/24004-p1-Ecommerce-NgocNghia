@@ -1,3 +1,134 @@
+// Function to get URL parameters
+function getURLParameter(name) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(name);
+}
+
+// Function to switch to a specific tab
+function switchToTab(tabName) {
+    // Remove active class from all nav links and tab contents
+    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    
+    // Find and activate the specified tab
+    const targetNavLink = document.querySelector(`.nav-link[data-tab="${tabName}"]`);
+    const targetTabContent = document.getElementById(tabName);
+    
+    if (targetNavLink && targetTabContent) {
+        targetNavLink.classList.add('active');
+        targetTabContent.classList.add('active');
+        
+        // Scroll to the tab content
+        targetTabContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        
+        return true;
+    }
+    return false;
+}
+
+// Updated initializeTabSwitching function
+function initializeTabSwitching() {
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            
+            this.classList.add('active');
+            const tabId = this.getAttribute('data-tab');
+            const tabContent = document.getElementById(tabId);
+            if (tabContent) {
+                tabContent.classList.add('active');
+            }
+        });
+    });
+    
+    // Check for tab parameter in URL and switch to it
+    const tabParam = getURLParameter('tab');
+    if (tabParam) {
+        // Wait a bit for the DOM to be fully rendered
+        setTimeout(() => {
+            const success = switchToTab(tabParam);
+            if (success) {
+                // Show a subtle notification
+                showTabSwitchNotification(tabParam);
+            }
+        }, 100);
+    }
+}
+
+// Function to show a subtle notification when switching tabs via URL
+function showTabSwitchNotification(tabName) {
+    const tabDisplayNames = {
+        'account': 'Account Information',
+        'addresses': 'My Addresses',
+        'orders': 'My Orders',
+        'returns': 'Returns & Cancellations',
+        'reviews': 'My Reviews',
+        'wishlist': 'My Wishlist',
+        'payment': 'Payment Methods',
+        'notifications': 'Notification Preferences'
+    };
+    
+    const displayName = tabDisplayNames[tabName] || tabName;
+    
+    // Create a subtle notification
+    const notification = document.createElement('div');
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: linear-gradient(45deg, #667eea, #764ba2);
+        color: white;
+        padding: 12px 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        z-index: 1000;
+        font-size: 0.9rem;
+        font-weight: 600;
+        opacity: 0;
+        transform: translateX(100%);
+        transition: all 0.3s ease;
+    `;
+    
+    notification.innerHTML = `
+        <i class="fa-solid fa-check-circle" style="margin-right: 8px;"></i>
+        Viewing ${displayName}
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Animate in
+    setTimeout(() => {
+        notification.style.opacity = '1';
+        notification.style.transform = 'translateX(0)';
+    }, 100);
+    
+    // Remove after 3 seconds
+    setTimeout(() => {
+        notification.style.opacity = '0';
+        notification.style.transform = 'translateX(100%)';
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.remove();
+            }
+        }, 300);
+    }, 3000);
+}
+
+// Update the DOMContentLoaded event listener
+document.addEventListener('DOMContentLoaded', () => {
+    updateProfileImage();
+    updateProfileDropdown();
+    updateProfileInformation();
+    
+    // Initialize tab switching after profile information is loaded
+    setTimeout(() => {
+        initializeTabSwitching();
+    }, 200);
+});
+
 // Tab switching functionality
 document.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', function(e) {
@@ -267,7 +398,7 @@ function getFromStorage(key, defaultValue = null) {
 }
 
 function formatCurrency(amount) {
-    return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '₫';
+    return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + 'đ';
 }
 
 function getOrderStatusBadge(status) {
@@ -493,7 +624,7 @@ function generateOrdersHTML() {
                                                 <div style="
                                                     font-size: 0.75rem;
                                                     color: #666;
-                                                ">Qty: ${item.quantity}</div>
+                                                ">Quantity: ${item.quantity}</div>
                                                 ${item.quantity > 1 ? `
                                                     <div style="
                                                         position: absolute;
@@ -1044,25 +1175,6 @@ function updateProfileInformation() {
             </div>
         </main>
     `;
-    initializeTabSwitching();
-}
-
-function initializeTabSwitching() {
-    document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-            
-            this.classList.add('active');
-            const tabId = this.getAttribute('data-tab');
-            const tabContent = document.getElementById(tabId);
-            if (tabContent) {
-                tabContent.classList.add('active');
-            }
-        });
-    });
 }
 
 // Get cart data from localStorage
@@ -1161,12 +1273,7 @@ window.closeAddressModal = closeAddressModal;
 window.viewOrderDetails = viewOrderDetails;
 window.cancelOrder = cancelOrder;
 window.reorderItems = reorderItems;
-
-document.addEventListener('DOMContentLoaded', () => {
-    updateProfileImage();
-    updateProfileDropdown();
-    updateProfileInformation();
-});
+window.switchToTab = switchToTab;
 
 // Address Modal HTML (add to the end of the profile container)
 const addressModalHTML = `

@@ -9,7 +9,7 @@ let currentFilters = {
 
 // Pagination state
 let currentPage = 1;
-const productsPerPage = 8;
+const productsPerPage = 6;
 
 function toggleDropdown() {
     const dropdown = document.getElementById('profile-dropdown');
