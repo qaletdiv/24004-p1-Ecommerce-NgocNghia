@@ -1,15 +1,15 @@
 // shop-page.js - Updated with filter functionality using localStorage
 
 // Filter state management
-let currentFilters = {
+var currentFilters = {
     category: 'all',
     priceRange: 'all',
     searchTerm: ''
 };
 
 // Pagination state
-let currentPage = 1;
-const productsPerPage = 6;
+var currentPage = 1;
+var productsPerPage = 6;
 
 function toggleDropdown() {
     const dropdown = document.getElementById('profile-dropdown');

@@ -41,6 +41,29 @@ window.switchToLogin = switchToLogin;
 
 // Handle form submissions
 document.addEventListener('DOMContentLoaded', function() {
+
+    const signupPassword = document.getElementById('signupPassword');
+    const confirmPassword = document.getElementById('confirmSignupPassword');
+    
+    /// Confirm password
+    function validatePasswords() {
+        if (confirmPassword.value === '') {
+            confirmPassword.style.borderColor = '#e1e5e9';
+            return;
+        }
+        
+        if (signupPassword.value === confirmPassword.value) {
+            confirmPassword.style.borderColor = '#28a745';
+            confirmPassword.style.boxShadow = '0 0 0 3px rgba(40, 167, 69, 0.1)';
+        } else {
+            confirmPassword.style.borderColor = '#dc3545';
+            confirmPassword.style.boxShadow = '0 0 0 3px rgba(220, 53, 69, 0.1)';
+        }
+    }
+    
+    // Add event listeners for real-time validation
+    signupPassword.addEventListener('input', validatePasswords);
+    confirmPassword.addEventListener('input', validatePasswords);
     // Login form handler
     document.getElementById('login-form-element').addEventListener('submit', function (e) {
         e.preventDefault();
@@ -69,6 +92,25 @@ document.addEventListener('DOMContentLoaded', function() {
         const name = document.getElementById('signupName').value;
         const email = document.getElementById('signupEmail').value;
         const password = document.getElementById('signupPassword').value;
+        const confirmPasswordValue = document.getElementById('confirmSignupPassword').value;
+
+        // Validate that passwords are not empty
+        if (password === '' || confirmPasswordValue === '') {
+            alert('Please enter both password fields.');
+            return;
+        }
+
+        // Validate password confirmation for mismatch
+        if (password !== confirmPasswordValue) {
+            alert('Passwords do not match. Please enter the same password in both fields.');
+            return;
+        }
+
+        // Validate password strength
+        if (password.length < 6) {
+            alert('Password must be at least 6 characters long.');
+            return;
+        }
 
         const storedAccounts = JSON.parse(localStorage.getItem('accounts')) || [];
         const existingAccount = storedAccounts.find(acc => acc.email === email);
