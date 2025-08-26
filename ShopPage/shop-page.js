@@ -36,7 +36,7 @@ function loadFiltersFromStorage() {
             console.error('Error loading filters from storage:', error);
         }
     }
-    
+
     // Load saved page
     const savedPage = localStorage.getItem('currentPage');
     if (savedPage) {
@@ -89,7 +89,7 @@ function filterProducts() {
         // Price range filter
         if (currentFilters.priceRange !== 'all') {
             const priceValue = parseFloat(product.price?.replace(/[^\d]/g, '')) || 0;
-            
+
             switch (currentFilters.priceRange) {
                 case 'under-3m':
                     if (priceValue >= 3000000) return false;
@@ -111,7 +111,7 @@ function filterProducts() {
             const searchLower = currentFilters.searchTerm.toLowerCase();
             const productName = product.name?.toLowerCase() || '';
             const productDescription = product.description?.toLowerCase() || '';
-            
+
             if (!productName.includes(searchLower) && !productDescription.includes(searchLower)) {
                 return false;
             }
@@ -127,7 +127,7 @@ function renderProducts() {
     if (!productsGrid) return;
 
     const filteredProducts = filterProducts();
-    
+
     if (filteredProducts.length === 0) {
         productsGrid.innerHTML = `
             <div style="grid-column: 1 / -1; text-align: center; padding: 3rem;">
@@ -141,10 +141,10 @@ function renderProducts() {
     productsGrid.innerHTML = filteredProducts.map(product => `
         <div class="product-card" data-product-id="${product.id}" style="cursor: pointer;">
             <img src="${product.image}" alt="${product.name}" class="product-image">
-            <div class="product-info">
+             <div class="product-info">
                 <h3 class="product-name">${product.name}</h3>
                 <p class="product-price">${product.price}</p>
-                <button class="add-to-cart-btn" onclick="addToCart(event, ${product.id})">Add to Cart</button>
+                <p class="product-category">${product.category}</p>
             </div>
         </div>
     `).join('');
@@ -154,77 +154,77 @@ function renderProducts() {
 }
 
 // Add to cart functionality
-function addToCart(event, productId) {
-    event.stopPropagation(); // Prevent card click when button is clicked
-    
-    const allProducts = getProductsFromStorage();
-    const product = allProducts.find(p => p.id === productId);
-    
-    if (!product) {
-        console.error('Product not found');
-        return;
-    }
+// function addToCart(event, productId) {
+//     event.stopPropagation(); // Prevent card click when button is clicked
 
-    // Get current user and cart
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    const cartKey = currentUser ? `cart_of_${currentUser.name}` : 'cart_guest';
-    
-    let cart = [];
-    try {
-        const storedCart = localStorage.getItem(cartKey);
-        cart = storedCart ? JSON.parse(storedCart) : [];
-    } catch (error) {
-        console.error('Error loading cart:', error);
-        cart = [];
-    }
+//     const allProducts = getProductsFromStorage();
+//     const product = allProducts.find(p => p.id === productId);
 
-    // Check if product already exists in cart
-    const existingItem = cart.find(item => item.id === productId);
-    
-    if (existingItem) {
-        existingItem.quantity += 1;
-    } else {
-        cart.push({
-            ...product,
-            quantity: 1
-        });
-    }
+//     if (!product) {
+//         console.error('Product not found');
+//         return;
+//     }
 
-    // Save updated cart
-    try {
-        localStorage.setItem(cartKey, JSON.stringify(cart));
-        
-        // Update button appearance
-        const button = event.target;
-        const originalText = button.textContent;
-        const originalBackground = button.style.background;
-        
-        button.style.background = 'linear-gradient(45deg, #27ae60, #20bf6b)';
-        button.textContent = 'Added!';
-        
-        setTimeout(() => {
-            button.style.background = originalBackground || 'linear-gradient(45deg, #667eea, #764ba2)';
-            button.textContent = originalText;
-        }, 2000);
+//     // Get current user and cart
+//     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+//     const cartKey = currentUser ? `cart_of_${currentUser.name}` : 'cart_guest';
 
-        // Update cart badge
-        updateCartBadge();
-        triggerCartUpdate();
-        
-    } catch (error) {
-        console.error('Error saving to cart:', error);
-    }
-}
+//     let cart = [];
+//     try {
+//         const storedCart = localStorage.getItem(cartKey);
+//         cart = storedCart ? JSON.parse(storedCart) : [];
+//     } catch (error) {
+//         console.error('Error loading cart:', error);
+//         cart = [];
+//     }
+
+//     // Check if product already exists in cart
+//     const existingItem = cart.find(item => item.id === productId);
+
+//     if (existingItem) {
+//         existingItem.quantity += 1;
+//     } else {
+//         cart.push({
+//             ...product,
+//             quantity: 1
+//         });
+//     }
+
+//     // Save updated cart
+//     try {
+//         localStorage.setItem(cartKey, JSON.stringify(cart));
+
+//         // Update button appearance
+//         const button = event.target;
+//         const originalText = button.textContent;
+//         const originalBackground = button.style.background;
+
+//         button.style.background = 'linear-gradient(45deg, #27ae60, #20bf6b)';
+//         button.textContent = 'Added!';
+
+//         setTimeout(() => {
+//             button.style.background = originalBackground || 'linear-gradient(45deg, #667eea, #764ba2)';
+//             button.textContent = originalText;
+//         }, 2000);
+
+//         // Update cart badge
+//         updateCartBadge();
+//         triggerCartUpdate();
+
+//     } catch (error) {
+//         console.error('Error saving to cart:', error);
+//     }
+// }
 
 // Bind events to product cards
 function bindProductCardEvents() {
     document.querySelectorAll('.product-card').forEach(card => {
-        card.addEventListener('click', function(event) {
+        card.addEventListener('click', function (event) {
             // Don't navigate if button was clicked
             if (event.target.classList.contains('add-to-cart-btn')) {
                 return;
             }
-            
+
             const productId = this.getAttribute('data-product-id');
             localStorage.setItem('selectedProduct', productId);
             window.location.href = `../ProductsPage/products-page.html`;
@@ -272,7 +272,7 @@ function clearFilters() {
 // Initialize filters when DOM is loaded
 function initializeFilters() {
     loadFiltersFromStorage();
-    
+
     /// Category Filter
     document.getElementById('category').addEventListener('change', function () {
         currentFilters.category = this.value;
@@ -291,10 +291,10 @@ function initializeFilters() {
 
     // Search functionality
     document.querySelector('.search-btn').addEventListener('click', handleSearch);
-    
+
     const searchInput = document.querySelector('.search-input');
     if (searchInput) {
-        searchInput.addEventListener('keypress', function(e) {
+        searchInput.addEventListener('keypress', function (e) {
             if (e.key === 'Enter') {
                 handleSearch();
             }
@@ -444,7 +444,7 @@ function getProductsFromStorage() {
 // Filter products based on current filters
 function filterProducts() {
     const allProducts = getProductsFromStorage();
-    
+
     return allProducts.filter(product => {
         // Category filter
         if (currentFilters.category !== 'all') {
@@ -458,7 +458,7 @@ function filterProducts() {
         // Price range filter
         if (currentFilters.priceRange !== 'all') {
             const priceValue = parseFloat(product.price?.replace(/[^\d]/g, '')) || 0;
-            
+
             switch (currentFilters.priceRange) {
                 case 'under-3m':
                     if (priceValue >= 3000000) return false;
@@ -480,7 +480,7 @@ function filterProducts() {
             const searchLower = currentFilters.searchTerm.toLowerCase();
             const productName = product.name?.toLowerCase() || '';
             const productDescription = product.description?.toLowerCase() || '';
-            
+
             if (!productName.includes(searchLower) && !productDescription.includes(searchLower)) {
                 return false;
             }
@@ -496,7 +496,7 @@ function renderProducts() {
     if (!productsGrid) return;
 
     const filteredProducts = filterProducts();
-    
+
     if (filteredProducts.length === 0) {
         productsGrid.innerHTML = `
             <div style="grid-column: 1 / -1; text-align: center; padding: 3rem;">
@@ -512,13 +512,13 @@ function renderProducts() {
     // Calculate pagination
     const totalProducts = filteredProducts.length;
     const totalPages = Math.ceil(totalProducts / productsPerPage);
-    
+
     // Ensure current page is valid
     if (currentPage > totalPages) {
         currentPage = 1;
         savePaginationToStorage();
     }
-    
+
     // Get products for current page
     const startIndex = (currentPage - 1) * productsPerPage;
     const endIndex = startIndex + productsPerPage;
@@ -527,17 +527,17 @@ function renderProducts() {
     productsGrid.innerHTML = productsToShow.map(product => `
         <div class="product-card" data-product-id="${product.id}" style="cursor: pointer;">
             <img src="${product.image}" alt="${product.name}" class="product-image">
-            <div class="product-info">
+             <div class="product-info">
                 <h3 class="product-name">${product.name}</h3>
                 <p class="product-price">${product.price}</p>
-                <button class="add-to-cart-btn" onclick="addToCart(event, ${product.id})">Add to Cart</button>
+                <p class="product-category">${product.category}</p>
             </div>
         </div>
     `).join('');
 
     // Re-bind click events for product cards
     bindProductCardEvents();
-    
+
     // Render pagination
     renderPagination(totalPages);
 }
@@ -546,21 +546,21 @@ function renderProducts() {
 function renderPagination(totalPages) {
     const paginationContainer = document.querySelector('.pagination');
     if (!paginationContainer) return;
-    
+
     if (totalPages <= 1) {
         paginationContainer.innerHTML = '';
         return;
     }
 
     let paginationHTML = '';
-    
+
     // Previous button
     paginationHTML += `
         <button onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled style="opacity: 0.5; cursor: not-allowed;"' : ''}>
             « Previous
         </button>
     `;
-    
+
     // Page numbers
     for (let i = 1; i <= totalPages; i++) {
         // Show first page, last page, current page, and pages around current
@@ -574,14 +574,14 @@ function renderPagination(totalPages) {
             paginationHTML += '<span style="padding: 10px; color: #666;">...</span>';
         }
     }
-    
+
     // Next button
     paginationHTML += `
         <button onclick="goToPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled style="opacity: 0.5; cursor: not-allowed;"' : ''}>
             Next »
         </button>
     `;
-    
+
     paginationContainer.innerHTML = paginationHTML;
 }
 
@@ -589,13 +589,13 @@ function renderPagination(totalPages) {
 function goToPage(pageNumber) {
     const filteredProducts = filterProducts();
     const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
-    
+
     if (pageNumber < 1 || pageNumber > totalPages) return;
-    
+
     currentPage = pageNumber;
     savePaginationToStorage();
     renderProducts();
-    
+
     // Scroll to top of products section
     const productsSection = document.querySelector('.products-section');
     if (productsSection) {
@@ -606,10 +606,10 @@ function goToPage(pageNumber) {
 // Add to cart functionality
 function addToCart(event, productId) {
     event.stopPropagation(); // Prevent card click when button is clicked
-    
+
     const allProducts = getProductsFromStorage();
     const product = allProducts.find(p => p.id === productId);
-    
+
     if (!product) {
         console.error('Product not found');
         return;
@@ -618,12 +618,12 @@ function addToCart(event, productId) {
     // Get current user and cart
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     const cartKey = currentUser ? `cart_of_${currentUser.name}` : 'cart_guest';
-    
+
     let cart = getFromStorage(cartKey, []);
 
     // Check if product already exists in cart
     const existingItem = cart.find(item => item.id === productId);
-    
+
     if (existingItem) {
         existingItem.quantity += 1;
     } else {
@@ -636,15 +636,15 @@ function addToCart(event, productId) {
     // Save updated cart
     try {
         localStorage.setItem(cartKey, JSON.stringify(cart));
-        
+
         // Update button appearance
         const button = event.target;
         const originalText = button.textContent;
         const originalBackground = button.style.background;
-        
+
         button.style.background = 'linear-gradient(45deg, #27ae60, #20bf6b)';
         button.textContent = 'Added!';
-        
+
         setTimeout(() => {
             button.style.background = originalBackground || 'linear-gradient(45deg, #667eea, #764ba2)';
             button.textContent = originalText;
@@ -653,7 +653,7 @@ function addToCart(event, productId) {
         // Update cart badge
         updateCartBadge();
         triggerCartUpdate();
-        
+
     } catch (error) {
         console.error('Error saving to cart:', error);
     }
@@ -662,12 +662,12 @@ function addToCart(event, productId) {
 // Bind events to product cards
 function bindProductCardEvents() {
     document.querySelectorAll('.product-card').forEach(card => {
-        card.addEventListener('click', function(event) {
+        card.addEventListener('click', function (event) {
             // Don't navigate if button was clicked
             if (event.target.classList.contains('add-to-cart-btn')) {
                 return;
             }
-            
+
             const productId = this.getAttribute('data-product-id');
             localStorage.setItem('selectedProduct', productId);
             window.location.href = `../ProductsPage/products-page.html`;
@@ -711,7 +711,7 @@ function updateFilterUI() {
 // Initialize filters
 function initializeFilters() {
     loadFiltersFromStorage();
-    
+
     // Category filter
     const categorySelect = document.getElementById('category');
     if (categorySelect) {
@@ -743,10 +743,10 @@ function initializeFilters() {
     if (searchBtn) {
         searchBtn.addEventListener('click', handleSearch);
     }
-    
+
     const searchInput = document.querySelector('.search-input');
     if (searchInput) {
-        searchInput.addEventListener('keypress', function(e) {
+        searchInput.addEventListener('keypress', function (e) {
             if (e.key === 'Enter') {
                 handleSearch();
             }
@@ -811,12 +811,12 @@ window.addEventListener('storage', function (e) {
     if (e.key && (e.key.includes('cart_of_') || e.key === 'cart_guest')) {
         updateCartBadge();
     }
-    
+
     // Check if products were updated
     if (e.key === 'products') {
         renderProducts();
     }
-    
+
     // Check if filters were updated
     if (e.key === 'shopFilters') {
         loadFiltersFromStorage();
@@ -841,12 +841,12 @@ function goToCartPage() {
 }
 
 // Initialize everything when page loads
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Initialize profile and cart
     updateProfileImage();
     updateProfileDropdown();
     updateCartBadge();
-    
+
     // Initialize filters with a small delay to ensure DOM is ready
     setTimeout(() => {
         initializeFilters();
