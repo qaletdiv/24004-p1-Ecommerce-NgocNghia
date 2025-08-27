@@ -18,33 +18,34 @@ Storage: Browser Local Storage
 Styling: Custom CSS with modern design patterns
 
 📁 Project Structure
+
 J&N-Figure-Store/
         ├── home.html              # Main homepage
         ├── style.css             # Global stylesheet
         ├── Statics/
-        │   └── main.js   
-        │   └── mock-data.js  
-        │   └── admin.js          
+               └── main.js   
+               └── mock-data.js  
+               └── admin.js          
         ├── AboutPage/
-        │   └── about-page.html
-        │   └── about-page.css 
-        │   └── about-page.js  
+               └── about-page.html
+               └── about-page.css 
+               └── about-page.js  
         ├── ShopPage/
-        │   └── shop-page.html
-        │   └── shop-page.css  
-        │   └── shop-page.js  
+               └── shop-page.html
+               └── shop-page.css  
+               └── shop-page.js  
         ├── ContactPage/
-        │   └── contact-page.html
-        │   └── contact-page.css 
-        │   └── contact-page.js  
+               └── contact-page.html
+               └── contact-page.css 
+               └── contact-page.js  
         ├── LoginPage/
-        │   └── login-page.html
-        │   └── login-page.css  
-        │   └── login-page.js  
+               └── login-page.html
+               └── login-page.css  
+               └── login-page.js  
         ├── CartPage/
-        │   └── cart-page.html
-        │   └── cart-page.css
-        │   └── cart-page.js  
+               └── cart-page.html
+               └── cart-page.css
+               └── cart-page.js  
         └── ProductsPage/
             └── products-page.html
             └── products-page.css  
