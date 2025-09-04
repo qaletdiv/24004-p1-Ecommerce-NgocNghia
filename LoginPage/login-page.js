@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (account) {
             localStorage.setItem('currentUser', JSON.stringify(account));
             console.log('Current user saved:', account);
-            window.location.href = '../home.html';
+            window.location.href = '../index.html';
         } else {
             alert('Invalid email or password. Please try again.');
         }
@@ -133,6 +133,6 @@ document.addEventListener('DOMContentLoaded', function() {
         localStorage.setItem('currentUser', JSON.stringify(newAccount));
         
         alert(`Account created successfully! Welcome, ${name}!`);
-        window.location.href = '../home.html';
+        window.location.href = '../index.html';
     });
 });

@@ -347,7 +347,7 @@ function updateProfileDropdown() {
                          ${currentUser.name}
                     </a>
                 </li>
-                <li><a href="../home.html">HOME</a></li>
+                <li><a href="../index.html">HOME</a></li>
                 <li><a href="../AboutPage/about-page.html">ABOUT</a></li>
                 <li><a href="../ShopPage/shop-page.html">SHOP</a></li>
                 <li><a href="../ContactPage/contact-page.html">CONTACT</a></li>
@@ -357,7 +357,7 @@ function updateProfileDropdown() {
     } else {
         dropdown.innerHTML = `
             <ul>
-                <li><a href="../home.html">HOME</a></li>
+                <li><a href="../index.html">HOME</a></li>
                 <li><a href="../AboutPage/about-page.html">ABOUT</a></li>
                 <li><a href="../ShopPage/shop-page.html">SHOP</a></li>
                 <li><a href="../ContactPage/contact-page.html">CONTACT</a></li>
@@ -383,7 +383,7 @@ function handleLogout() {
     updateProfileImage();
     updateProfileDropdown();
     console.log('User logged out');
-    window.location.href = '../home.html';
+    window.location.href = '../index.html';
 }
 
 // Helper functions for order history
