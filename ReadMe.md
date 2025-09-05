@@ -1,3 +1,5 @@
+Live: https://24004-p1-ecommerce-ngoc-nghia-6i3h.vercel.app/
+
 J&N Figure Store
 A modern e-commerce website for anime and collectible figures built with vanilla HTML, CSS, and JavaScript.
 🚀 Features
