@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecomerce Webpage - Login</title>
+    <link rel="stylesheet" href="login-page.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <script type="module" src="./login-page.js"></script>
+</head>
+
+<body>
+
+    <div class="login-container">
+        <div class="left-panel login-mode" id="leftPanel">
+            <div class="img-decoration"></div>
+        </div>
+
+        <div class="right-panel">
+            <div class="store-logo">J&N Figure Store</div>
+
+            <div class="form-container">
+            <div class="login-form" id="loginForm">
+            <!-- Login Form -->
+            <div class="header-text">
+                <h1>Hello Guest </h1>
+                <h2>Welcome To Our Store</h2>
+            </div>
+            <form id="login-form-element">
+                <div class="form-log">
+                    <input type="email" required id="loginEmail" placeholder="Email Address">
+                </div>
+                <div class="form-log">
+                    <input type="password" required id="loginPassword" placeholder="Password">
+                </div>
+                <div class="button-log">
+                    <button type="submit" class="btn btn-login">Login</button>
+                    <button type="button" class="btn btn-signup" onclick="switchToSignup()">Sign up</button>
+                </div>
+
+                <div class="lost-password">
+                    <a href="#">Forgot your password?</a>
+                </div>
+
+                <div class="social-section">
+                    <div class="social-links">
+                        <a href="#" class="social-link">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </form>
+            </div>
+
+            <div class="signup-form hidden" id = "signupForm">
+
+                <div class="header-text">
+                    <h1>Sign Up</h1>
+                </div>
+    
+                <form id="signup-form">
+                    <div class="form-log">
+                        <input type="text" required id="signupName" placeholder="Name">
+                    </div>
+                    <div class="form-log">
+                        <input type="email" required id="signupEmail" placeholder="Email Address">
+                    </div>
+                    <div class="form-log">
+                        <input type="password" required id="signupPassword" placeholder="Password">
+                    </div>
+                    <div class="form-log">
+                        <input type="password" required id="confirmSignupPassword" placeholder="Enter Password Again">
+                    </div>
+                    <div class="button-log">
+                        <button type="submit" class="btn btn-login" onclick="switchToLogin()">Login</button>
+                        <button type="submit" class="btn btn-signup" onclick="switchToSignup()">Sign up</button>
+                    </div>
+                </form>
+            </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

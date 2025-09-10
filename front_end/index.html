@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecomerce Webpage - Home</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <script type="module" src="./Statics/main.js"></script>
+</head>
+
+<body>
+    <header class="site-header">
+        <!-- logo -->
+        <nav class="nav-container">
+            <a href="" class="logo">J&N FIGURE STORE</a>
+            <ul class="nav-links">
+                <li><a href="./index.html">HOME</a></li>
+                <li><a href="../AboutPage/about-page.html">ABOUT</a></li>
+                <li><a href="../ShopPage/shop-page.html">SHOP</a></li>
+                <li><a href="../ContactPage/contact-page.html">CONTACT</a></li>
+                <li class="nav-icons">
+                    <i onclick="goToCartPage()" class="fa-solid fa-bag-shopping cart-icon"></i>
+                    <div class="account-dropdown">
+                        <img id="profile-logo" class="profile-img"
+                            src="https://www.svgrepo.com/show/343494/profile-user-account.svg" alt="account-logo"
+                            srcset="" onclick="toggleDropdown()">
+                        <!-- Menu drop down when click on profile -->
+                        <div class="profile-menu" id="profile-dropdown">
+                            <ul>
+                                <li><a href="./index.html">HOME</a></li>
+                                <li><a href="../AboutPage/about-page.html">ABOUT</a></li>
+                                <li><a href="../ShopPage/shop-page.html">SHOP</a></li>
+                                <li><a href="../ContactPage/contact-page.html">CONTACT</a></li>
+                                <li><a href="../LoginPage/login-page.html" class="sign-in">SIGN IN</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+        <div class="title-header">
+            <h1>J&N</h1>
+            <p>FIGURE STORE</p>
+            <button class="btn-header"><a href="../ShopPage/shop-page.html">SHOP NOW</a></button>
+        </div>
+    </header>
+
+    <!-- Search Bar Section -->
+    <section class="search-container">
+        <div class="search-wrapper">
+            <input type="text" class="search-box" id="searchInput"
+                placeholder="Search for figures (e.g., Pain, Naruto, Goku)...">
+            <button class="search-btn" onclick="performSearch()">
+                <i class="fa-solid fa-search"></i>
+            </button>
+        </div>
+        <div class="search-results-info" id="searchInfo"></div>
+    </section>
+
+    <main>
+        <!-- Featured Premium Products Section -->
+        <section class="featured-section">
+            <div class="products-grid" id="premium-products-grid">
+                <!-- Premium products will be loaded here -->
+            </div>
+            <div class="view-all-container">
+                <button class="view-all-btn"><a href="../ShopPage/shop-page.html">VIEW ALL PRODUCTS</a></button>
+            </div>
+        </section>
+
+        <hr>
+        
+        <section class="feedback-section">
+            <h2 class="feedback-title">WHAT OUR CUSTOMERS SAY</h2>
+            <div class="feedback-grid">
+                <div class="feedback-card">
+                    <i class="fa-solid fa-quote-left" style="color: #988643;"></i>
+                    <p>Fast shipping and excellent customer service. The product was even better than expected. I will
+                        definitely be a returning customer.</p>
+                    <img src="" alt="">
+                    <p class="name-customers"></p>
+                </div>
+
+                <div class="feedback-card">
+                    <i class="fa-solid fa-quote-left" style="color: #988643;"></i>
+                    <p>Fast shipping and excellent customer service. The product was even better than expected. I will
+                        definitely be a returning customer.</p>
+                    <img src="" alt="">
+                    <p class="name-customers"></p>
+                </div>
+
+                <div class="feedback-card">
+                    <i class="fa-solid fa-quote-left" style="color: #988643;"></i>
+                    <p>Fast shipping and excellent customer service. The product was even better than expected. I will
+                        definitely be a returning customer.</p>
+                    <img src="" alt="">
+                    <p class="name-customers"></p>
+                </div>
+            </div>
+        </section>
+
+        <section class="catalog-section">
+            <h2 class="catalog-title">GIVE YOURSELF A FIGURE TO BECOME A COLLECTOR</h2>
+            <p>TO PURSUE THE FIGURE COLLECTION DREAM</p>
+            <button class="catalog-button"><a href="../ShopPage/shop-page.html">PURCHASE A FIGURE</a></button>
+        </section>
+
+        <section class="secure-product">
+            <div class="secure-gird">
+                <div class="secure-card">
+                    <i class="fa-solid fa-key"></i>
+                    <h3>SECURE PAYMENT</h3>
+                    <p>All our payments our SSL secured</p>
+                </div>
+
+                <div class="secure-card">
+                    <i class="fa-solid fa-truck"></i>
+                    <h3>DELIVERED WITH CARE</h3>
+                    <p>Super fast shipping to your door</p>
+                </div>
+
+                <div class="secure-card">
+                    <i class="fa-solid fa-heart"></i>
+                    <h3>EXCELLENT SERVICE</h3>
+                    <p>Live chat and phone support</p>
+                </div>
+            </div>
+        </section>
+
+        <hr>
+    </main>
+
+    <footer class="footer-content">
+        <ul class="nav-links">
+            <li><a href="../index.html">HOME</a></li>
+            <li><a href="../AboutPage/about-page.html">ABOUT</a></li>
+            <li><a href="../ShopPage/shop-page.html">SHOP</a></li>
+            <li><a href="../ContactPage/contact-page.html">CONTACT</a></li>
+        </ul>
+        <a href="" class="logo">J&N FIGURE STORE</a>
+        <p>Copyright &copy; 2025 J&N Figure Store</p>
+    </footer>
+
+    <script>
+        function getProductsFromStorage() {
+            try {
+                const products = localStorage.getItem('products');
+                return products ? JSON.parse(products) : [];
+            } catch (error) {
+                console.error('Error reading products from localStorage:', error);
+                return [];
+            }
+        }
+
+        // Filter premium products (high-priced items)
+        function getPremiumProducts() {
+            const allProducts = getProductsFromStorage();
+            
+            // Define premium criteria - products with price > 5,000,000₫ or specific high-end models
+            const premiumProducts = allProducts.filter(product => {
+                const priceString = product.price.replace(/[^\d]/g, ''); // Remove non-numeric characters
+                const price = parseInt(priceString);
+                return price >= 5000000; // 5 million VND or more
+            });
+
+            // Sort by price (highest first) and take top 6
+            return premiumProducts
+                .sort((a, b) => {
+                    const priceA = parseInt(a.price.replace(/[^\d]/g, ''));
+                    const priceB = parseInt(b.price.replace(/[^\d]/g, ''));
+                    return priceB - priceA;
+                })
+                .slice(0, 6);
+        }
+
+        // Create product card HTML
+        function createProductCard(product) {
+            return `
+                <div class="product-card premium-card" data-product-id="${product.id}" data-name="${product.name.toLowerCase()}">
+                    <div class="premium-badge">HOT</div>
+                    <img src="${product.image}" alt="${product.name}" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-name">${product.name}</h3>
+                        <p class="product-price">${product.price}</p>
+                        <p class="product-category">${product.category}</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Render premium products to the grid
+        function renderPremiumProducts() {
+            const premiumGrid = document.getElementById('premium-products-grid');
+            const premiumProducts = getPremiumProducts();
+
+            if (premiumProducts.length === 0) {
+                premiumGrid.innerHTML = '<p class="no-products">No premium products found.</p>';
+                return;
+            }
+
+            premiumGrid.innerHTML = premiumProducts.map(product => createProductCard(product)).join('');
+
+            // Re-attach click events to product cards
+            attachProductCardEvents();
+        }
+
+        // Attach click events to product cards
+        function attachProductCardEvents() {
+            document.querySelectorAll('.product-card').forEach(card => {
+                card.style.cursor = 'pointer';
+                card.addEventListener('click', function () {
+                    const productId = this.getAttribute('data-product-id');
+                    localStorage.setItem('selectedProduct', productId);
+                    window.location.href = `../ProductsPage/products-page.html`;
+                });
+            });
+        }
+
+        // Search functionality - now searches through all products
+        function performSearch() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+            
+            if (searchTerm === '') {
+                // If search is empty, show premium products
+                renderPremiumProducts();
+                document.getElementById('searchInfo').textContent = '';
+                return;
+            }
+
+            // Search through all products
+            const allProducts = getProductsFromStorage();
+            const filteredProducts = allProducts.filter(product =>
+                product.name.toLowerCase().includes(searchTerm) ||
+                product.description.toLowerCase().includes(searchTerm) ||
+                product.category.toLowerCase().includes(searchTerm)
+            );
+
+            // Render filtered products
+            renderSearchResults(filteredProducts, searchTerm);
+        }
+
+        function renderSearchResults(products, searchTerm) {
+            const premiumGrid = document.getElementById('premium-products-grid');
+            const searchInfo = document.getElementById('searchInfo');
+
+            if (products.length === 0) {
+                premiumGrid.innerHTML = '<p class="no-products">No results found.</p>';
+                searchInfo.textContent = `No results found for "${searchTerm}"`;
+                searchInfo.style.color = '#ff6b6b';
+                return;
+            }
+
+            // Create cards without premium badge for search results
+            premiumGrid.innerHTML = products.map(product => `
+                <div class="product-card" data-product-id="${product.id}" data-name="${product.name.toLowerCase()}">
+                    <img src="${product.image}" alt="${product.name}" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-name">${product.name}</h3>
+                        <p class="product-price">${product.price}</p>
+                        <p class="product-category">${product.category}</p>
+                    </div>
+                </div>
+            `).join('');
+
+            searchInfo.textContent = `Found ${products.length} product${products.length !== 1 ? 's' : ''} for "${searchTerm}"`;
+            searchInfo.style.color = '#28a745';
+
+            // Re-attach click events
+            attachProductCardEvents();
+        }
+
+        // Real-time search as user types
+        document.addEventListener('DOMContentLoaded', function () {
+            // Initial render of premium products
+            renderPremiumProducts();
+
+            const searchInput = document.getElementById('searchInput');
+
+            // Real-time search
+            searchInput.addEventListener('input', function () {
+                const searchTerm = this.value.toLowerCase().trim();
+                if (searchTerm === '') {
+                    renderPremiumProducts();
+                    document.getElementById('searchInfo').textContent = '';
+                } else {
+                    performSearch();
+                }
+            });
+
+            // Search on Enter key press
+            searchInput.addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
+
+            // Clear search when input is focused and empty
+            searchInput.addEventListener('focus', function () {
+                if (this.value === '') {
+                    renderPremiumProducts();
+                    document.getElementById('searchInfo').textContent = '';
+                }
+            });
+
+            // Make sure other functions are available
+            setTimeout(() => {
+                updateProfileImage();
+                updateProfileDropdown();
+                updateCartBadge();
+            }, 100);
+        });
+
+        // Keep existing functions
+        function toggleDropdown() {
+            const dropdown = document.getElementById('profile-dropdown');
+            dropdown.classList.toggle('show');
+        }
+
+        function goToCartPage() {
+            window.location.href = './CartPage/cart-page.html';
+        }
+
+        // Click outside to close dropdown
+        document.addEventListener('click', function (event) {
+            const dropdown = document.getElementById('profile-dropdown');
+            const profileImg = document.querySelector('.profile-img');
+
+            if (!dropdown.contains(event.target) && !profileImg.contains(event.target)) {
+                dropdown.classList.remove('show');
+            }
+        });
+
+        // Make functions available globally
+        window.toggleDropdown = toggleDropdown;
+        window.goToCartPage = goToCartPage;
+        window.performSearch = performSearch;
+        window.renderPremiumProducts = renderPremiumProducts;
+    </script>
+</body>
+
+</html>
